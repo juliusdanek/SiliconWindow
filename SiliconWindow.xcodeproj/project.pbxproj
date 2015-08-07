@@ -108,10 +108,10 @@
 		18A0C7691B741DB800CCD363 = {
 			isa = PBXGroup;
 			children = (
-				18A0C7B71B741E8500CCD363 /* Frameworks */,
 				18A0C7741B741DB800CCD363 /* SiliconWindow */,
 				18A0C78C1B741DB800CCD363 /* SiliconWindowTests */,
 				18A0C7731B741DB800CCD363 /* Products */,
+				18A0C7B71B741E8500CCD363 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,16 +127,16 @@
 		18A0C7741B741DB800CCD363 /* SiliconWindow */ = {
 			isa = PBXGroup;
 			children = (
+				346B3A431B742DFF00A7B61D /* Helpers & Keys */,
 				18A0C7991B741DD700CCD363 /* AppDelegate.swift */,
-				18A0C7791B741DB800CCD363 /* FirstViewController.swift */,
-				18A0C7B81B741EDF00CCD363 /* Company.swift */,
 				18A0C7BC1B741EF100CCD363 /* Feed.swift */,
 				18A0C7BA1B741EE700CCD363 /* CompanyTableVC.swift */,
+				18A0C7B81B741EDF00CCD363 /* Company.swift */,
 				18A0C77B1B741DB800CCD363 /* SecondViewController.swift */,
-				18A0C7A11B741E2E00CCD363 /* Keys.swift */,
+				18A0C7791B741DB800CCD363 /* FirstViewController.swift */,
 				18A0C77D1B741DB800CCD363 /* Main.storyboard */,
-				18A0C7801B741DB800CCD363 /* Images.xcassets */,
 				18A0C7821B741DB800CCD363 /* LaunchScreen.xib */,
+				18A0C7801B741DB800CCD363 /* Images.xcassets */,
 				18A0C7751B741DB800CCD363 /* Supporting Files */,
 			);
 			path = SiliconWindow;
@@ -185,6 +185,14 @@
 				18A0C79D1B741E0100CCD363 /* ParseUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		346B3A431B742DFF00A7B61D /* Helpers & Keys */ = {
+			isa = PBXGroup;
+			children = (
+				18A0C7A11B741E2E00CCD363 /* Keys.swift */,
+			);
+			name = "Helpers & Keys";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -497,6 +505,7 @@
 				18A0C7951B741DB900CCD363 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		18A0C7961B741DB900CCD363 /* Build configuration list for PBXNativeTarget "SiliconWindowTests" */ = {
 			isa = XCConfigurationList;
@@ -505,6 +514,7 @@
 				18A0C7981B741DB900CCD363 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
