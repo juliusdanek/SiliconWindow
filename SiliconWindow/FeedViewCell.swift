@@ -12,7 +12,11 @@ import ParseUI
 
 class FeedViewCell: PFTableViewCell {
 
-    @IBOutlet var name: UITextField!
+    @IBOutlet weak var companyImage: PFImageView!
+    @IBOutlet weak var companyName: UILabel!
     
-
+    @IBOutlet weak var postTitle: UILabel!
+    @IBOutlet weak var timePosted: UILabel!
+    @IBOutlet weak var numberOfComments: UILabel!
+    @IBOutlet weak var numberOfVotes: UILabel!
 }

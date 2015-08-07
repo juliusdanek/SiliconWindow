@@ -15,7 +15,13 @@ class Post: PFObject, PFSubclassing {
         return "Posts"
     }
     
-    @NSManaged var name: String
-    @NSManaged var imageFile: PFFile?
+    @NSManaged var title: String
+    @NSManaged var post: String
+    @NSManaged var sentiment: Int
+    @NSManaged var votes: Int
+    @NSManaged var news: Bool
     
+    //relations to other PFObjects
+    @NSManaged var company: Company
+    @NSManaged var comments: [Comment]
 }

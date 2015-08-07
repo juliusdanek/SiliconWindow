@@ -49,17 +49,22 @@ class CompanyTableVC: PFQueryTableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("CompanyViewCell") as! PFTableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier("CompanyViewCell") as! CompanyViewCell
         
         //setting the placeholder image
+        cell.companyImage.image = UIImage(named: "placeholder")
         
-        //getting the title and images
+        //setting name, location and image
         if let company = object as? Company {
-            cell.textLabel?.text = company.name
-            cell.textLabel?.adjustsFontSizeToFitWidth = true
+            cell.companyName.text = company.name
+            cell.companyLocation.text = company.location
+            //making sure that label fits
+            cell.companyName.adjustsFontSizeToFitWidth = true
+            
+            //download image in background, provided there is one
             if company.imageFile != nil {
-                cell.imageView?.file = company.imageFile
-                cell.imageView?.loadInBackground()
+                cell.companyImage.file = company.imageFile
+                cell.companyImage.loadInBackground()
             }
         }
         

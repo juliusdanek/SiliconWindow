@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18A0C77A1B741DB800CCD363 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7791B741DB800CCD363 /* FirstViewController.swift */; };
+		18A0C77A1B741DB800CCD363 /* CreatePostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7791B741DB800CCD363 /* CreatePostVC.swift */; };
 		18A0C77C1B741DB800CCD363 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C77B1B741DB800CCD363 /* SecondViewController.swift */; };
 		18A0C77F1B741DB800CCD363 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C77D1B741DB800CCD363 /* Main.storyboard */; };
 		18A0C7811B741DB800CCD363 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C7801B741DB800CCD363 /* Images.xcassets */; };
@@ -31,6 +31,7 @@
 		18A0C7B91B741EDF00CCD363 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7B81B741EDF00CCD363 /* Company.swift */; };
 		18A0C7BB1B741EE700CCD363 /* CompanyTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7BA1B741EE700CCD363 /* CompanyTableVC.swift */; };
 		18A0C7BD1B741EF100CCD363 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7BC1B741EF100CCD363 /* FeedVC.swift */; };
+		18BE15C31B744E4E0004795C /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE15C21B744E4E0004795C /* Comment.swift */; };
 		346B3A481B7439BF00A7B61D /* FeedViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346B3A471B7439BF00A7B61D /* FeedViewCell.swift */; };
 		346B3A4A1B7439D200A7B61D /* CompanyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346B3A491B7439D200A7B61D /* CompanyViewCell.swift */; };
 		346B3A4C1B743BC300A7B61D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346B3A4B1B743BC300A7B61D /* Post.swift */; };
@@ -49,7 +50,7 @@
 /* Begin PBXFileReference section */
 		18A0C7721B741DB800CCD363 /* SiliconWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SiliconWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A0C7761B741DB800CCD363 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		18A0C7791B741DB800CCD363 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		18A0C7791B741DB800CCD363 /* CreatePostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostVC.swift; sourceTree = "<group>"; };
 		18A0C77B1B741DB800CCD363 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		18A0C77E1B741DB800CCD363 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18A0C7801B741DB800CCD363 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -75,6 +76,7 @@
 		18A0C7B81B741EDF00CCD363 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		18A0C7BA1B741EE700CCD363 /* CompanyTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyTableVC.swift; sourceTree = "<group>"; };
 		18A0C7BC1B741EF100CCD363 /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
+		18BE15C21B744E4E0004795C /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		346B3A471B7439BF00A7B61D /* FeedViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewCell.swift; sourceTree = "<group>"; };
 		346B3A491B7439D200A7B61D /* CompanyViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyViewCell.swift; sourceTree = "<group>"; };
 		346B3A4B1B743BC300A7B61D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				18A0C7B81B741EDF00CCD363 /* Company.swift */,
+				18BE15C21B744E4E0004795C /* Comment.swift */,
 				346B3A4B1B743BC300A7B61D /* Post.swift */,
 			);
 			name = "Data for Cells";
@@ -223,7 +226,7 @@
 				18A0C7BC1B741EF100CCD363 /* FeedVC.swift */,
 				18A0C7BA1B741EE700CCD363 /* CompanyTableVC.swift */,
 				18A0C77B1B741DB800CCD363 /* SecondViewController.swift */,
-				18A0C7791B741DB800CCD363 /* FirstViewController.swift */,
+				18A0C7791B741DB800CCD363 /* CreatePostVC.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -334,9 +337,10 @@
 				18A0C7BD1B741EF100CCD363 /* FeedVC.swift in Sources */,
 				346B3A481B7439BF00A7B61D /* FeedViewCell.swift in Sources */,
 				18A0C7B91B741EDF00CCD363 /* Company.swift in Sources */,
-				18A0C77A1B741DB800CCD363 /* FirstViewController.swift in Sources */,
+				18A0C77A1B741DB800CCD363 /* CreatePostVC.swift in Sources */,
 				346B3A4A1B7439D200A7B61D /* CompanyViewCell.swift in Sources */,
 				18A0C7BB1B741EE700CCD363 /* CompanyTableVC.swift in Sources */,
+				18BE15C31B744E4E0004795C /* Comment.swift in Sources */,
 				346B3A4C1B743BC300A7B61D /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -27,6 +27,9 @@ class FeedVC: PFQueryTableViewController {
         
         super.viewDidLoad()
         
+        //barbutton item to create a post
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Compose, target: self, action: "createPost")
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,21 +44,37 @@ class FeedVC: PFQueryTableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         
+        println(object)
+
         var cell = tableView.dequeueReusableCellWithIdentifier("FeedViewCell") as! FeedViewCell
         
-        //setting the placeholder image
+        println(cell)
+        
+        
+        cell.companyImage.hidden = true
+        cell.companyName.hidden = true
         
         //getting the title and images
         if let post = object as? Post {
-            cell.name?.text = post.name
-            cell.textLabel?.adjustsFontSizeToFitWidth = true
-            if post.imageFile != nil {
-                cell.imageView?.file = post.imageFile
-                cell.imageView?.loadInBackground()
+            cell.postTitle.text = post.title
+            cell.postTitle.adjustsFontSizeToFitWidth = true
+            
+            if post.company.imageFile != nil {
+                cell.companyImage.file = post.company.imageFile!
+                cell.companyImage.loadInBackground()
             }
         }
         
         return cell
+    }
+    
+    
+    //pushing a new navcontroller onto navcontroller with modal view
+    func createPost () {
+        let createVC = storyboard?.instantiateViewControllerWithIdentifier("CreatePostVC") as! CreatePostVC
+        let navController = UINavigationController(rootViewController: createVC)
+        navigationController?.presentViewController(navController, animated: true, completion: nil)
+        
     }
 
 

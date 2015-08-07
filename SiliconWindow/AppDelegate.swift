@@ -21,7 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // Initialize Parse.
         
+        //Register subclasses
         Company.registerSubclass()
+        Post.registerSubclass()
+        Comment.registerSubclass()
         
         Parse.setApplicationId(Keys().appID,
             clientKey: Keys().clientID)

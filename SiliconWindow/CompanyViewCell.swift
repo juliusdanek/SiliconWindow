@@ -11,13 +11,12 @@ import Parse
 import ParseUI
 
 class CompanyViewCell: PFTableViewCell {
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
+    
+    //TODO: on left side, next to image, implement some measure of popularity -> number, or percentage, etc.
+    
+    //setting up outlets for company view cell. Image, name and location
+    @IBOutlet weak var companyImage: PFImageView!
+    @IBOutlet weak var companyName: UILabel!
+    @IBOutlet weak var companyLocation: UILabel!
 
 }
