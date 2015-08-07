@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
@@ -23,16 +23,17 @@
             </objects>
             <point key="canvasLocation" x="-66" y="-73"/>
         </scene>
-        <!--Feed-->
+        <!--FeedVC-->
         <scene sceneID="OY3-LZ-ixb">
             <objects>
-                <tableViewController id="Dwi-Pu-eFx" customClass="Feed" customModule="SiliconWindow" customModuleProvider="target" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="agY-LS-Ivb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="Dwi-Pu-eFx" customClass="FeedVC" customModule="SiliconWindow" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="uXb-Eo-7cB">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="hJt-oE-nlk">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedViewCell" id="hJt-oE-nlk">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hJt-oE-nlk" id="uJn-f6-YnD">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -46,7 +47,6 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="DA3-gw-JaP"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="agY-LS-Ivb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1501" y="-442"/>
         </scene>

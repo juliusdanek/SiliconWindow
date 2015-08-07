@@ -30,7 +30,9 @@
 		18A0C7B61B741E7E00CCD363 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A0C7B51B741E7E00CCD363 /* libsqlite3.dylib */; };
 		18A0C7B91B741EDF00CCD363 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7B81B741EDF00CCD363 /* Company.swift */; };
 		18A0C7BB1B741EE700CCD363 /* CompanyTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7BA1B741EE700CCD363 /* CompanyTableVC.swift */; };
-		18A0C7BD1B741EF100CCD363 /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7BC1B741EF100CCD363 /* Feed.swift */; };
+		18A0C7BD1B741EF100CCD363 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7BC1B741EF100CCD363 /* FeedVC.swift */; };
+		346B3A481B7439BF00A7B61D /* FeedViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346B3A471B7439BF00A7B61D /* FeedViewCell.swift */; };
+		346B3A4A1B7439D200A7B61D /* CompanyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346B3A491B7439D200A7B61D /* CompanyViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +73,9 @@
 		18A0C7B51B741E7E00CCD363 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		18A0C7B81B741EDF00CCD363 /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		18A0C7BA1B741EE700CCD363 /* CompanyTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyTableVC.swift; sourceTree = "<group>"; };
-		18A0C7BC1B741EF100CCD363 /* Feed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
+		18A0C7BC1B741EF100CCD363 /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
+		346B3A471B7439BF00A7B61D /* FeedViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewCell.swift; sourceTree = "<group>"; };
+		346B3A491B7439D200A7B61D /* CompanyViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,9 +131,10 @@
 		18A0C7741B741DB800CCD363 /* SiliconWindow */ = {
 			isa = PBXGroup;
 			children = (
+				346B3A441B74395100A7B61D /* Table Cells */,
 				346B3A431B742DFF00A7B61D /* Helpers & Keys */,
 				18A0C7991B741DD700CCD363 /* AppDelegate.swift */,
-				18A0C7BC1B741EF100CCD363 /* Feed.swift */,
+				18A0C7BC1B741EF100CCD363 /* FeedVC.swift */,
 				18A0C7BA1B741EE700CCD363 /* CompanyTableVC.swift */,
 				18A0C7B81B741EDF00CCD363 /* Company.swift */,
 				18A0C77B1B741DB800CCD363 /* SecondViewController.swift */,
@@ -193,6 +198,15 @@
 				18A0C7A11B741E2E00CCD363 /* Keys.swift */,
 			);
 			name = "Helpers & Keys";
+			sourceTree = "<group>";
+		};
+		346B3A441B74395100A7B61D /* Table Cells */ = {
+			isa = PBXGroup;
+			children = (
+				346B3A471B7439BF00A7B61D /* FeedViewCell.swift */,
+				346B3A491B7439D200A7B61D /* CompanyViewCell.swift */,
+			);
+			name = "Table Cells";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -298,9 +312,11 @@
 				18A0C79A1B741DD700CCD363 /* AppDelegate.swift in Sources */,
 				18A0C7A21B741E2E00CCD363 /* Keys.swift in Sources */,
 				18A0C77C1B741DB800CCD363 /* SecondViewController.swift in Sources */,
-				18A0C7BD1B741EF100CCD363 /* Feed.swift in Sources */,
+				18A0C7BD1B741EF100CCD363 /* FeedVC.swift in Sources */,
+				346B3A481B7439BF00A7B61D /* FeedViewCell.swift in Sources */,
 				18A0C7B91B741EDF00CCD363 /* Company.swift in Sources */,
 				18A0C77A1B741DB800CCD363 /* FirstViewController.swift in Sources */,
+				346B3A4A1B7439D200A7B61D /* CompanyViewCell.swift in Sources */,
 				18A0C7BB1B741EE700CCD363 /* CompanyTableVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

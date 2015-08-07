@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import ParseUI
 
-class Feed: PFQueryTableViewController {
+class FeedVC: PFQueryTableViewController {
     
  
     required init(coder aDecoder: NSCoder) {

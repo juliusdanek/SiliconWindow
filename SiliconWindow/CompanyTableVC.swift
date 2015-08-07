@@ -48,6 +48,7 @@ class CompanyTableVC: PFQueryTableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
+        
         var cell = tableView.dequeueReusableCellWithIdentifier("CompanyViewCell") as! PFTableViewCell
         
         //setting the placeholder image
