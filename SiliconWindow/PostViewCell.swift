@@ -12,4 +12,9 @@ import ParseUI
 
 class PostViewCell: PFTableViewCell {
     
+    @IBOutlet weak var postTitle: UILabel!
+    @IBOutlet weak var timePosted: UILabel!
+    
+    @IBOutlet weak var numberOfComments: UILabel!
+    @IBOutlet weak var numberOfVotes: UILabel!
 }
