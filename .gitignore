@@ -1,0 +1,5 @@
+# ignore for ease of use
+.DS_Store
+
+# ignore for privacy
+Keys.swift
