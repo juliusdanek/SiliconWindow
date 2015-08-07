@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import ParseUI
 
-class FeedViewCell: PFTableViewCell {
+class NewsViewCell: PFTableViewCell {
 
     @IBOutlet weak var companyImage: PFImageView!
     @IBOutlet weak var companyName: UILabel!

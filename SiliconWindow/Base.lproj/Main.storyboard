@@ -52,7 +52,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedViewCell" rowHeight="106" id="hJt-oE-nlk" customClass="FeedViewCell" customModule="SiliconWindow" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FeedViewCell" rowHeight="106" id="hJt-oE-nlk" customClass="NewsViewCell" customModule="SiliconWindow" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hJt-oE-nlk" id="uJn-f6-YnD">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -70,7 +70,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zv2-Ov-JyL">
-                                            <rect key="frame" x="109" y="4" width="475" height="24"/>
+                                            <rect key="frame" x="109" y="4" width="429" height="24"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -107,6 +107,7 @@
                                         <constraint firstItem="zv2-Ov-JyL" firstAttribute="top" secondItem="uJn-f6-YnD" secondAttribute="topMargin" constant="-4" id="V8D-cD-zdD"/>
                                         <constraint firstItem="1iM-1n-G9v" firstAttribute="width" secondItem="OdD-V7-RLT" secondAttribute="width" id="cIH-Lt-MBM"/>
                                         <constraint firstItem="1iM-1n-G9v" firstAttribute="leading" secondItem="uJn-f6-YnD" secondAttribute="leadingMargin" constant="20" id="eT4-ok-S6B"/>
+                                        <constraint firstItem="fuU-lS-CMg" firstAttribute="trailing" secondItem="zv2-Ov-JyL" secondAttribute="trailing" constant="54" id="egt-XT-Tw1"/>
                                         <constraint firstItem="1iM-1n-G9v" firstAttribute="bottom" secondItem="uJn-f6-YnD" secondAttribute="bottomMargin" id="gbp-Xl-TbM"/>
                                         <constraint firstItem="fuU-lS-CMg" firstAttribute="trailing" secondItem="uJn-f6-YnD" secondAttribute="trailingMargin" id="ihr-lP-sJY"/>
                                         <constraint firstItem="1iM-1n-G9v" firstAttribute="leading" secondItem="OdD-V7-RLT" secondAttribute="leading" id="inz-aD-E96"/>
@@ -117,6 +118,7 @@
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="Bsw-CB-KgJ"/>
+                                            <exclude reference="F9e-0n-6gn"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -124,10 +126,88 @@
                                     <outlet property="companyImage" destination="OdD-V7-RLT" id="zjz-Me-da5"/>
                                     <outlet property="companyName" destination="1iM-1n-G9v" id="CeS-bx-rTT"/>
                                     <outlet property="numberOfComments" destination="JlH-ob-X6z" id="IYe-ir-gGc"/>
-                                    <outlet property="numberOfReplies" destination="JlH-ob-X6z" id="3Nx-da-CBA"/>
                                     <outlet property="numberOfVotes" destination="fuU-lS-CMg" id="nrO-b4-AJ3"/>
                                     <outlet property="postTitle" destination="zv2-Ov-JyL" id="Pvn-oT-Tj8"/>
                                     <outlet property="timePosted" destination="TNT-Sp-X1b" id="SUR-5Z-pNA"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostViewCell" rowHeight="106" id="NLF-ax-oDW" customClass="PostViewCell" customModule="SiliconWindow" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NLF-ax-oDW" id="NeQ-Am-Fdh">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Ay-4U-SKv" customClass="PFImageView">
+                                            <rect key="frame" x="28" y="4" width="73" height="73"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="3Ay-4U-SKv" secondAttribute="height" multiplier="1:1" id="YLV-Ij-b2c"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CompanyName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nea-Hd-4TW">
+                                            <rect key="frame" x="28" y="79" width="73" height="18"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jES-pS-bNt">
+                                            <rect key="frame" x="109" y="4" width="429" height="24"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# of replies" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSi-4d-U0J">
+                                            <rect key="frame" x="258" y="84" width="85" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time posted" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fix-2z-vYh">
+                                            <rect key="frame" x="109" y="84" width="96" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Votes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OKR-dQ-P2x">
+                                            <rect key="frame" x="549" y="42" width="43" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="nea-Hd-4TW" firstAttribute="top" secondItem="3Ay-4U-SKv" secondAttribute="bottom" constant="2" id="4cz-9j-3MO"/>
+                                        <constraint firstItem="nea-Hd-4TW" firstAttribute="bottom" secondItem="NeQ-Am-Fdh" secondAttribute="bottomMargin" id="77d-hk-atx"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="jES-pS-bNt" secondAttribute="trailing" constant="8" id="7xN-Ez-bN1"/>
+                                        <constraint firstItem="OKR-dQ-P2x" firstAttribute="trailing" secondItem="NeQ-Am-Fdh" secondAttribute="trailingMargin" id="9Cj-Rd-jTW"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="rSi-4d-U0J" secondAttribute="bottom" constant="-8" id="IoX-xb-f5e"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="3Ay-4U-SKv" secondAttribute="bottom" constant="20" id="S3d-pd-3yF"/>
+                                        <constraint firstAttribute="centerX" secondItem="rSi-4d-U0J" secondAttribute="centerX" id="TRS-8v-b3n"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Fix-2z-vYh" secondAttribute="bottom" constant="-8" id="ZBr-Ss-VVA"/>
+                                        <constraint firstItem="nea-Hd-4TW" firstAttribute="leading" secondItem="NeQ-Am-Fdh" secondAttribute="leadingMargin" constant="20" id="ZwG-KG-DRE"/>
+                                        <constraint firstAttribute="centerY" secondItem="OKR-dQ-P2x" secondAttribute="centerY" id="bYn-99-pMI"/>
+                                        <constraint firstItem="jES-pS-bNt" firstAttribute="top" secondItem="NeQ-Am-Fdh" secondAttribute="topMargin" constant="-4" id="fba-JH-Kfc"/>
+                                        <constraint firstItem="3Ay-4U-SKv" firstAttribute="leading" secondItem="NeQ-Am-Fdh" secondAttribute="leadingMargin" constant="20" id="iPW-iz-bo7"/>
+                                        <constraint firstItem="nea-Hd-4TW" firstAttribute="leading" secondItem="3Ay-4U-SKv" secondAttribute="leading" id="iT2-Gn-iee"/>
+                                        <constraint firstItem="3Ay-4U-SKv" firstAttribute="top" secondItem="NeQ-Am-Fdh" secondAttribute="topMargin" constant="-4" id="mQN-GY-W52"/>
+                                        <constraint firstItem="OKR-dQ-P2x" firstAttribute="trailing" secondItem="jES-pS-bNt" secondAttribute="trailing" constant="54" id="qxy-ID-s6g"/>
+                                        <constraint firstItem="Fix-2z-vYh" firstAttribute="leading" secondItem="nea-Hd-4TW" secondAttribute="trailing" constant="8" id="spD-Ea-lfK"/>
+                                        <constraint firstItem="nea-Hd-4TW" firstAttribute="width" secondItem="3Ay-4U-SKv" secondAttribute="width" id="uvf-7H-Uw8"/>
+                                        <constraint firstItem="nea-Hd-4TW" firstAttribute="top" secondItem="3Ay-4U-SKv" secondAttribute="bottom" constant="2" id="xiP-go-pwN"/>
+                                        <constraint firstItem="jES-pS-bNt" firstAttribute="leading" secondItem="3Ay-4U-SKv" secondAttribute="trailing" constant="8" id="zdg-WQ-0OE"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="4cz-9j-3MO"/>
+                                            <exclude reference="7xN-Ez-bN1"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="companyImage" destination="3Ay-4U-SKv" id="sIU-FN-rae"/>
+                                    <outlet property="companyName" destination="nea-Hd-4TW" id="rvu-dd-JA6"/>
+                                    <outlet property="numberOfComments" destination="rSi-4d-U0J" id="pZe-3X-X1c"/>
+                                    <outlet property="numberOfVotes" destination="OKR-dQ-P2x" id="ZrH-bW-K9y"/>
+                                    <outlet property="postTitle" destination="jES-pS-bNt" id="0Ff-BC-3Au"/>
+                                    <outlet property="timePosted" destination="Fix-2z-vYh" id="8Vx-XI-RVj"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

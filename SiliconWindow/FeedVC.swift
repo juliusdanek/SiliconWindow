@@ -44,25 +44,23 @@ class FeedVC: PFQueryTableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         
-        println(object)
-
         var cell = tableView.dequeueReusableCellWithIdentifier("FeedViewCell") as! FeedViewCell
-        
-        println(cell)
-        
         
         cell.companyImage.hidden = true
         cell.companyName.hidden = true
         
         //getting the title and images
         if let post = object as? Post {
+            println(post)
             cell.postTitle.text = post.title
             cell.postTitle.adjustsFontSizeToFitWidth = true
             
-            if post.company.imageFile != nil {
-                cell.companyImage.file = post.company.imageFile!
-                cell.companyImage.loadInBackground()
-            }
+            cell.numberOfVotes.text = "\(post.votes)"
+            
+//            if post.company.imageFile != nil {
+//                cell.companyImage.file = post.company.imageFile!
+//                cell.companyImage.loadInBackground()
+//            }
         }
         
         return cell
