@@ -32,6 +32,31 @@ class FeedVC: PFQueryTableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    override func queryForTable() -> PFQuery {
+        var query = PFQuery(className: "Posts")
+        query.orderByDescending("createdAt")
+        return query
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
+        
+        var cell = tableView.dequeueReusableCellWithIdentifier("FeedViewCell") as! PFTableViewCell
+        
+        //setting the placeholder image
+        
+        //getting the title and images
+        if let post = object as? Post {
+            cell.textLabel?.text = post.name
+            cell.textLabel?.adjustsFontSizeToFitWidth = true
+            if post.imageFile != nil {
+                cell.imageView?.file = post.imageFile
+                cell.imageView?.loadInBackground()
+            }
+        }
+        
+        return cell
+    }
 
 
 }

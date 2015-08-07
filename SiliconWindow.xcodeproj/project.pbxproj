@@ -33,6 +33,7 @@
 		18A0C7BD1B741EF100CCD363 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7BC1B741EF100CCD363 /* FeedVC.swift */; };
 		346B3A481B7439BF00A7B61D /* FeedViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346B3A471B7439BF00A7B61D /* FeedViewCell.swift */; };
 		346B3A4A1B7439D200A7B61D /* CompanyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346B3A491B7439D200A7B61D /* CompanyViewCell.swift */; };
+		346B3A4C1B743BC300A7B61D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346B3A4B1B743BC300A7B61D /* Post.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		18A0C7BC1B741EF100CCD363 /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		346B3A471B7439BF00A7B61D /* FeedViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedViewCell.swift; sourceTree = "<group>"; };
 		346B3A491B7439D200A7B61D /* CompanyViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyViewCell.swift; sourceTree = "<group>"; };
+		346B3A4B1B743BC300A7B61D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,14 +133,11 @@
 		18A0C7741B741DB800CCD363 /* SiliconWindow */ = {
 			isa = PBXGroup;
 			children = (
+				18A0C7991B741DD700CCD363 /* AppDelegate.swift */,
+				346B3A4E1B743C4200A7B61D /* Views */,
+				346B3A4D1B743BC900A7B61D /* Data for Cells */,
 				346B3A441B74395100A7B61D /* Table Cells */,
 				346B3A431B742DFF00A7B61D /* Helpers & Keys */,
-				18A0C7991B741DD700CCD363 /* AppDelegate.swift */,
-				18A0C7BC1B741EF100CCD363 /* FeedVC.swift */,
-				18A0C7BA1B741EE700CCD363 /* CompanyTableVC.swift */,
-				18A0C7B81B741EDF00CCD363 /* Company.swift */,
-				18A0C77B1B741DB800CCD363 /* SecondViewController.swift */,
-				18A0C7791B741DB800CCD363 /* FirstViewController.swift */,
 				18A0C77D1B741DB800CCD363 /* Main.storyboard */,
 				18A0C7821B741DB800CCD363 /* LaunchScreen.xib */,
 				18A0C7801B741DB800CCD363 /* Images.xcassets */,
@@ -207,6 +206,26 @@
 				346B3A491B7439D200A7B61D /* CompanyViewCell.swift */,
 			);
 			name = "Table Cells";
+			sourceTree = "<group>";
+		};
+		346B3A4D1B743BC900A7B61D /* Data for Cells */ = {
+			isa = PBXGroup;
+			children = (
+				18A0C7B81B741EDF00CCD363 /* Company.swift */,
+				346B3A4B1B743BC300A7B61D /* Post.swift */,
+			);
+			name = "Data for Cells";
+			sourceTree = "<group>";
+		};
+		346B3A4E1B743C4200A7B61D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				18A0C7BC1B741EF100CCD363 /* FeedVC.swift */,
+				18A0C7BA1B741EE700CCD363 /* CompanyTableVC.swift */,
+				18A0C77B1B741DB800CCD363 /* SecondViewController.swift */,
+				18A0C7791B741DB800CCD363 /* FirstViewController.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,6 +337,7 @@
 				18A0C77A1B741DB800CCD363 /* FirstViewController.swift in Sources */,
 				346B3A4A1B7439D200A7B61D /* CompanyViewCell.swift in Sources */,
 				18A0C7BB1B741EE700CCD363 /* CompanyTableVC.swift in Sources */,
+				346B3A4C1B743BC300A7B61D /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
