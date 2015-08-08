@@ -7,11 +7,17 @@
 //
 
 import UIKit
+import Parse
+import ParseUI
 
-class CreatePostVC: UIViewController {
+class CreatePostVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.barTintColor = UIColor.blueColor()
+        navigationController?.navigationBar.translucent = false
+        navigationItem.title = "Choose Company"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "dismiss")
         // Do any additional setup after loading the view, typically from a nib.
@@ -21,7 +27,6 @@ class CreatePostVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     //dismiss the viewcontroller
     func dismiss () {
