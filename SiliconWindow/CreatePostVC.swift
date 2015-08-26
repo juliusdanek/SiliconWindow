@@ -10,12 +10,14 @@ import UIKit
 import Parse
 import ParseUI
 
-class CreatePostVC: UITableViewController {
+class CreatePostVC: PFQueryTableViewController, UISearchBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.barTintColor = UIColor.blueColor()
+        self.setNeedsStatusBarAppearanceUpdate()
+        
+//        navigationController?.navigationBar.barTintColor = UIColor.blueColor()
         navigationController?.navigationBar.translucent = false
         navigationItem.title = "Choose Company"
         
@@ -31,6 +33,36 @@ class CreatePostVC: UITableViewController {
     //dismiss the viewcontroller
     func dismiss () {
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    //MARK: SearchBar methods
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        
+        searchBar.resignFirstResponder()
+        
+        loadObjects()
+    }
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        
+        // Dismiss the keyboard
+        searchBar.resignFirstResponder()
+        
+        // Force reload of table data
+        loadObjects()
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        
+        // Clear any search criteria
+        searchBar.text = ""
+        
+        // Dismiss the keyboard
+        searchBar.resignFirstResponder()
+        
+        // Force reload of table data
+        loadObjects()
     }
 
 
