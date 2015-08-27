@@ -20,6 +20,16 @@ class CompanyTableVC: PFQueryTableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        //barbutton item to create a post
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Compose, target: self, action: "createPost")
+    
+        let logo = UIImage(named: "word_logo")
+        let imageView = UIImageView(image:logo)
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        imageView.frame = CGRectMake(0,0, 100, 50)
+        self.navigationItem.titleView = imageView
+        
     }
     
     override init(style: UITableViewStyle, className: String!) {

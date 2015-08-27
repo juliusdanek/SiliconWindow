@@ -29,6 +29,15 @@ class FeedVC: PFQueryTableViewController {
         
         //barbutton item to create a post
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Compose, target: self, action: "createPost")
+        let logo = UIImage(named: "word_logo")
+        let imageView = UIImageView(image:logo)
+        let screenSize: CGRect = UIScreen.mainScreen().bounds
+        imageView.frame = CGRectMake(0,0, 100, 50)
+        self.navigationItem.titleView = imageView
+        
+        // set table cell height
+        tableView.estimatedRowHeight = 68.0
+        tableView.rowHeight = UITableViewAutomaticDimension
         
     }
 
@@ -38,7 +47,7 @@ class FeedVC: PFQueryTableViewController {
     
     override func queryForTable() -> PFQuery {
         var query = PFQuery(className: "Posts")
-        query.orderByDescending("post")
+        query.orderByDescending("createdAt")
         return query
     }
     
@@ -46,37 +55,110 @@ class FeedVC: PFQueryTableViewController {
         
         let post = object as! Post
         
+        // news cell
         if post.news {
+            
             var cell = tableView.dequeueReusableCellWithIdentifier("NewsViewCell") as! NewsViewCell
             
-            cell.companyImage.hidden = true
-            cell.companyName.hidden = true
-            
-            //getting the title and images
+            // getting the title and images
             if let post = object as? Post {
+                
                 cell.postTitle.text = post.title
-                cell.postTitle.adjustsFontSizeToFitWidth = true
-                
                 cell.numberOfVotes.text = "\(post.votes)"
+                cell.companyImage.image = UIImage(named: "placeholder")
+                cell.cellId = post.objectId!
                 
-                //            if post.company.imageFile != nil {
-                //                cell.companyImage.file = post.company.imageFile!
-                //                cell.companyImage.loadInBackground()
-                //            }
+                // convert date to hrs/mins
+                let calendar = NSCalendar.currentCalendar()
+                let comp = calendar.components((.CalendarUnitDay | .CalendarUnitHour | .CalendarUnitMinute), fromDate: post.createdAt!)
+                let day = comp.day
+                let hour = comp.hour
+                let minute = comp.minute
+                cell.timePosted.text = String(format: "%d %@ %d %@ %d %@", day, "days", hour, "hrs", minute, "mins ago")
+                
+                // find associated company name & icon
+                let retrieveCompany = PFQuery(className:"Companies")
+                if let companyId = post.company.objectId {
+                    retrieveCompany.whereKey("objectId", equalTo: companyId)
+                    retrieveCompany.findObjectsInBackgroundWithBlock {
+                        (objects: [AnyObject]?, error: NSError?) -> Void in
+                        if error == nil {
+                            // The find succeeded.
+                            if let objects = objects as? [Company] {
+                                for object in objects {
+                                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                        // cell.companyName.text = object.name
+                                        if object.imageFile != nil {
+                                            cell.companyImage.file = object.imageFile!
+                                            cell.companyImage.loadInBackground()
+                                        }
+                                    })
+                                }
+                            }
+                        } else {
+                            println("Error: \(error!) \(error!.userInfo!)")
+                        }
+                    }
+                }
+                
             }
             
             return cell
-        } else {
-            var cell = tableView.dequeueReusableCellWithIdentifier("PostViewCell") as! PostViewCell
+        }
+        
+        // post cell
+        else {
             
-            cell.postTitle.text = post.title
+            var cell = tableView.dequeueReusableCellWithIdentifier("NewsViewCell") as! NewsViewCell
+            
+            // getting the title and images
+            if let post = object as? Post {
+                
+                cell.postTitle.text = post.title
+                cell.newsLabel.hidden = true
+                cell.numberOfVotes.text = "\(post.votes)"
+                cell.companyImage.image = UIImage(named: "placeholder")
+                cell.cellId = post.objectId!
+                
+                // convert date to hrs/mins
+                let calendar = NSCalendar.currentCalendar()
+                let comp = calendar.components((.CalendarUnitHour | .CalendarUnitMinute), fromDate: post.createdAt!)
+                let hour = comp.hour
+                let minute = comp.minute
+                cell.timePosted.text = String(format: "%d %@ %d %@", hour, "hrs", minute, "mins ago")
+
+                // find associated company name & icon
+                let retrieveCompany = PFQuery(className:"Companies")
+                if let companyId = post.company.objectId {
+                    retrieveCompany.whereKey("objectId", equalTo: companyId)
+                    retrieveCompany.findObjectsInBackgroundWithBlock {
+                        (objects: [AnyObject]?, error: NSError?) -> Void in
+                        if error == nil {
+                            // The find succeeded.
+                            if let objects = objects as? [Company] {
+                                for object in objects {
+                                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                        // cell.companyName.text = object.name
+                                        if object.imageFile != nil {
+                                            cell.companyImage.file = object.imageFile!
+                                            cell.companyImage.loadInBackground()
+                                        }
+                                    })
+                                }
+                            }
+                        } else {
+                            println("Error: \(error!) \(error!.userInfo!)")
+                        }
+                    }
+                }
+                
+            }
             
             return cell
         }
         
         
     }
-    
     
     //pushing a new navcontroller onto navcontroller with modal view
     func createPost () {

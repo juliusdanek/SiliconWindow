@@ -137,11 +137,11 @@
 		18A0C7741B741DB800CCD363 /* SiliconWindow */ = {
 			isa = PBXGroup;
 			children = (
+				346B3A431B742DFF00A7B61D /* Helpers & Keys */,
 				18A0C7991B741DD700CCD363 /* AppDelegate.swift */,
 				346B3A4E1B743C4200A7B61D /* Views */,
 				346B3A4D1B743BC900A7B61D /* Data for Cells */,
 				346B3A441B74395100A7B61D /* Table Cells */,
-				346B3A431B742DFF00A7B61D /* Helpers & Keys */,
 				18A0C77D1B741DB800CCD363 /* Main.storyboard */,
 				18A0C7821B741DB800CCD363 /* LaunchScreen.xib */,
 				18A0C7801B741DB800CCD363 /* Images.xcassets */,

@@ -20,6 +20,6 @@ class Company: PFObject, PFSubclassing {
     @NSManaged var companyDescription: String?
     @NSManaged var location: String?
     @NSManaged var searchText: String?
-    
     @NSManaged var posts: [Post]
+    
 }

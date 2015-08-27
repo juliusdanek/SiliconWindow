@@ -17,6 +17,5 @@ class Comment: PFObject, PFSubclassing {
     
     @NSManaged var commentString: String
     @NSManaged var votes: Int
-    
     @NSManaged var postID: Post
 }
