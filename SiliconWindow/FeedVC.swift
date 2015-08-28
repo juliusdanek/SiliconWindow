@@ -89,6 +89,7 @@ class FeedVC: PFQueryTableViewController {
                                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                         // cell.companyName.text = object.name
                                         if object.imageFile != nil {
+                                            cell.icon = object.imageFile!
                                             cell.companyImage.file = object.imageFile!
                                             cell.companyImage.loadInBackground()
                                         }
@@ -140,6 +141,7 @@ class FeedVC: PFQueryTableViewController {
                                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                         // cell.companyName.text = object.name
                                         if object.imageFile != nil {
+                                            cell.icon = object.imageFile!
                                             cell.companyImage.file = object.imageFile!
                                             cell.companyImage.loadInBackground()
                                         }
@@ -157,6 +159,26 @@ class FeedVC: PFQueryTableViewController {
             return cell
         }
         
+        
+    }
+    
+    // selected a cell --> go to post page
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! NewsViewCell
+        self.performSegueWithIdentifier("feedToPost", sender: cell)
+    }
+    
+    // segue performed --> prepare data before showing next  screen
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        
+        // go to post screen
+        if segue.identifier == "feedToPost" {
+            let postPage: PostViewController = segue.destinationViewController as! PostViewController
+            let cell = sender as! NewsViewCell
+            postPage.postId = cell.cellId as String
+            postPage.postTitle = cell.postTitle.text! as String
+            postPage.companyLogo = cell.icon as PFFile
+        }
         
     }
     

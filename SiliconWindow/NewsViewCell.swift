@@ -25,7 +25,7 @@ class NewsViewCell: PFTableViewCell {
     var cellId: String = ""
     var upTapped: Bool = false
     var downTapped: Bool = false
-
+    var icon: PFFile = PFFile()
    
     // vote post up
     @IBAction func upVote(sender: AnyObject) {
