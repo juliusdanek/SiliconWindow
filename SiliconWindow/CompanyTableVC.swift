@@ -10,8 +10,10 @@ import UIKit
 import Parse
 import ParseUI
 
-class CompanyTableVC: PFQueryTableViewController {
+class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,6 +25,9 @@ class CompanyTableVC: PFQueryTableViewController {
         
         //barbutton item to create a post
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Compose, target: self, action: "createPost")
+        
+        //setting delegate
+        searchBar.delegate = self
     
         let logo = UIImage(named: "word_logo")
         let imageView = UIImageView(image:logo)
@@ -52,8 +57,18 @@ class CompanyTableVC: PFQueryTableViewController {
     }
     
     override func queryForTable() -> PFQuery {
+        //query concerns companies
         var query = PFQuery(className: "Companies")
+        
+        //if searchbar text is active, query needs to change to search bar text
+        if searchBar.text != "" {
+            println(searchBar.text)
+            query.whereKey("searchText", containsString: searchBar.text)
+        }
+        
+        //order by name
         query.orderByAscending("name")
+        
         return query
     }
     
@@ -80,14 +95,37 @@ class CompanyTableVC: PFQueryTableViewController {
         
         return cell
     }
-        /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    // MARK: Search Bar methods:
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        
+        // Dismiss the keyboard
+        searchBar.resignFirstResponder()
+        
+        // Force reload of table data
+        self.loadObjects()
     }
-    */
+    
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        
+        // Dismiss the keyboard
+        searchBar.resignFirstResponder()
+        
+        // Force reload of table data
+        self.loadObjects()
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        
+        // Clear any search criteria
+        searchBar.text = ""
+        
+        // Dismiss the keyboard
+        searchBar.resignFirstResponder()
+        
+        // Force reload of table data
+        self.loadObjects()
+    }
 
 }

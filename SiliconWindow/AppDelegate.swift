@@ -56,7 +56,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+    func signup() {
+        //checking if there is a user cached
+        var currentUser = PFUser.currentUser()
+        if currentUser != nil {
+            //simple return statements
+            print("user still logged in")
+            return
+        } else {
+            //if not, try to log in with the unique device ID --> All listings will always be associated with a device
+            PFUser.logInWithUsernameInBackground(UIDevice.currentDevice().identifierForVendor.UUIDString, password:"FreeStuff") {
+                (user: PFUser?, error: NSError?) -> Void in
+                if user != nil {
+                    println("successful login")
+                    // Do stuff after successful login.
+                } else {
+                    //if you can't log in, sign the user up using the device ID and the same password
+                    var user = PFUser()
+                    user.username = UIDevice.currentDevice().identifierForVendor.UUIDString
+                    user.password = "SiliconWindow"
+                    // other fields can be set just like with PFObject
+                    user.signUpInBackgroundWithBlock({ (success, error) -> Void in
+                        if let error = error {
+                            let errorString = error.userInfo?["error"] as? NSString
+                            println(errorString)
+                        } else {
+                            println("successful first sign up")
+                            return
+                        }
+                    })
+                }
+            }
+        }
+    }
 
 }
 
