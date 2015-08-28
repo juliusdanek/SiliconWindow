@@ -62,8 +62,7 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
         
         //if searchbar text is active, query needs to change to search bar text
         if searchBar.text != "" {
-            println(searchBar.text)
-            query.whereKey("searchText", containsString: searchBar.text)
+            query.whereKey("searchText", matchesRegex: searchBar.text.lowercaseString, modifiers: "i")
         }
         
         //order by name
