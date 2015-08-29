@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		187F5BE61B9100A200E5AB66 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F5BE51B9100A200E5AB66 /* User.swift */; };
 		18A0C77A1B741DB800CCD363 /* CreatePostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7791B741DB800CCD363 /* CreatePostVC.swift */; };
 		18A0C77C1B741DB800CCD363 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C77B1B741DB800CCD363 /* PostViewController.swift */; };
 		18A0C77F1B741DB800CCD363 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C77D1B741DB800CCD363 /* Main.storyboard */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		187F5BE51B9100A200E5AB66 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		18A0C7721B741DB800CCD363 /* SiliconWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SiliconWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A0C7761B741DB800CCD363 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18A0C7791B741DB800CCD363 /* CreatePostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostVC.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				18A0C7B81B741EDF00CCD363 /* Company.swift */,
+				187F5BE51B9100A200E5AB66 /* User.swift */,
 				18BE15C21B744E4E0004795C /* Comment.swift */,
 				346B3A4B1B743BC300A7B61D /* Post.swift */,
 			);
@@ -334,6 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				187F5BE61B9100A200E5AB66 /* User.swift in Sources */,
 				18A0C79A1B741DD700CCD363 /* AppDelegate.swift in Sources */,
 				18A0C7A21B741E2E00CCD363 /* Keys.swift in Sources */,
 				18A0C77C1B741DB800CCD363 /* PostViewController.swift in Sources */,

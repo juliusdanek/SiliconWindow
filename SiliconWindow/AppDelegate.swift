@@ -25,12 +25,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Company.registerSubclass()
         Post.registerSubclass()
         Comment.registerSubclass()
+//        User.registerSubclass()
         
         Parse.setApplicationId(Keys().appID,
             clientKey: Keys().clientID)
         
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
+        
+        signup()
         
         return true
     }
@@ -66,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         } else {
             //if not, try to log in with the unique device ID --> All listings will always be associated with a device
-            PFUser.logInWithUsernameInBackground(UIDevice.currentDevice().identifierForVendor.UUIDString, password:"FreeStuff") {
+            PFUser.logInWithUsernameInBackground(UIDevice.currentDevice().identifierForVendor.UUIDString, password:"SiliconWindow") {
                 (user: PFUser?, error: NSError?) -> Void in
                 if user != nil {
                     println("successful login")

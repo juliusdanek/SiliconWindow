@@ -14,9 +14,11 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -58,17 +60,28 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
     
     override func queryForTable() -> PFQuery {
         //query concerns companies
-        var query = PFQuery(className: "Companies")
         
         //if searchbar text is active, query needs to change to search bar text
         if searchBar.text != "" {
+            var query = PFQuery(className: "Companies")
             query.whereKey("searchText", matchesRegex: searchBar.text.lowercaseString, modifiers: "i")
+            query.orderByAscending("name")
+            return query
+        } else {
+            let currentUser = PFUser.currentUser()
+            let relation = currentUser!.relationForKey("companies")
+            return relation.query()!
         }
-        
-        //order by name
-        query.orderByAscending("name")
-        
-        return query
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let company = objectAtIndexPath(indexPath) as! Company
+        if searchBar.text != "" {
+            let currentUser = PFUser.currentUser()
+            let relation = currentUser!.relationForKey("companies")
+            relation.addObject(company)
+            currentUser!.saveInBackground()
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
