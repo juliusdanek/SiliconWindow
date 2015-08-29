@@ -24,6 +24,9 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
         
         navigationItem.leftBarButtonItem = editButtonItem()
         
+        self.tableView.contentOffset = CGPointMake(0, searchBar.frame.height)
+        searchBar.hidden = true
+        
         //setting delegate
         searchBar.delegate = self
     
@@ -129,6 +132,7 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
     
     func add() {
         searchBar.hidden = false
+        self.tableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
     }
 
     // MARK: Search Bar methods:
@@ -155,6 +159,9 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
         
         // Clear any search criteria
         searchBar.text = ""
+        
+        searchBar.hidden = true
+        self.tableView.scrollRectToVisible(CGRectMake(0, searchBar.frame.height, 1, 1), animated: true)
         
         // Dismiss the keyboard
         searchBar.resignFirstResponder()
