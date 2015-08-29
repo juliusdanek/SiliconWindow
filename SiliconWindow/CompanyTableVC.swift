@@ -160,6 +160,7 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
         // Clear any search criteria
         searchBar.text = ""
         
+        //finish: http://pinkstone.co.uk/how-to-hide-and-show-a-uisearchbar-in-a-uitableview/
         searchBar.hidden = true
         self.tableView.scrollRectToVisible(CGRectMake(0, searchBar.frame.height, 1, 1), animated: true)
         
