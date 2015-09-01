@@ -23,6 +23,7 @@ class NewsViewCell: PFTableViewCell {
     @IBOutlet weak var numberOfVotes: UILabel!
     
     var cellId: String = ""
+    var timeString: String = ""
     var upTapped: Bool = false
     var downTapped: Bool = false
     var icon: PFFile = PFFile()

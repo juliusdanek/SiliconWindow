@@ -74,8 +74,9 @@ class FeedVC: PFQueryTableViewController {
                 let day = comp.day
                 let hour = comp.hour
                 let minute = comp.minute
-                cell.timePosted.text = String(format: "%d %@ %d %@ %d %@", day, "days", hour, "hrs", minute, "mins ago")
-                
+                cell.timePosted.text = String(format: "◷ %d %@ %d %@ %d %@", day, "days", hour, "hrs", minute, "mins ago")
+                var string:String
+
                 // find associated company name & icon
                 let retrieveCompany = PFQuery(className:"Companies")
                 if let companyId = post.company.objectId {
@@ -126,8 +127,8 @@ class FeedVC: PFQueryTableViewController {
                 let comp = calendar.components((.CalendarUnitHour | .CalendarUnitMinute), fromDate: post.createdAt!)
                 let hour = comp.hour
                 let minute = comp.minute
-                cell.timePosted.text = String(format: "%d %@ %d %@", hour, "hrs", minute, "mins ago")
-
+                cell.timePosted.text = String(format: "◷ %d %@ %d %@", hour, "hrs", minute, "mins ago")
+                
                 // find associated company name & icon
                 let retrieveCompany = PFQuery(className:"Companies")
                 if let companyId = post.company.objectId {
@@ -177,6 +178,7 @@ class FeedVC: PFQueryTableViewController {
             let cell = sender as! NewsViewCell
             postPage.postId = cell.cellId as String
             postPage.postTitle = cell.postTitle.text! as String
+            postPage.timeString = cell.timePosted.text
             postPage.companyLogo = cell.icon as PFFile
         }
         
