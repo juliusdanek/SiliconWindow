@@ -14,17 +14,18 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        //barbutton item to create a post
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Compose, target: self, action: "createPost")
+        //barbutton item to submit a company
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "add")
+        
+        navigationItem.leftBarButtonItem = editButtonItem()
+        
+        self.tableView.contentOffset = CGPointMake(0, searchBar.frame.height)
+        searchBar.hidden = true
         
         //setting delegate
         searchBar.delegate = self
@@ -57,18 +58,37 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
     }
     
     override func queryForTable() -> PFQuery {
-        //query concerns companies
-        var query = PFQuery(className: "Companies")
         
         //if searchbar text is active, query needs to change to search bar text
         if searchBar.text != "" {
+            //here the query actually accesses all companies and searches them
+            var query = PFQuery(className: "Companies")
+            //Looking for query with key that has a regular expression to ignore casing
             query.whereKey("searchText", matchesRegex: searchBar.text.lowercaseString, modifiers: "i")
+            //sort by name
+            query.orderByAscending("name")
+            return query
+        } else {
+            //whereas here it only shows the companies that the user added
+            let currentUser = PFUser.currentUser()
+            //check for relational companies
+            let relation = currentUser!.relationForKey("companies")
+            //return query
+            if self.objects?.count == 0 {
+                //TODO: Implement a label that tells user to add / search for companies.
+            }
+            return relation.query()!
         }
-        
-        //order by name
-        query.orderByAscending("name")
-        
-        return query
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let company = objectAtIndexPath(indexPath) as! Company
+        if searchBar.text != "" {
+            let currentUser = PFUser.currentUser()
+            let relation = currentUser!.relationForKey("companies")
+            relation.addObject(company)
+            currentUser!.saveInBackground()
+        }
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
@@ -93,6 +113,26 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
         }
         
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            //remove relationship, then reload table to show updated companies in table
+            let company = objectAtIndexPath(indexPath) as! Company
+            let currentUser = PFUser.currentUser()
+            let relation = currentUser?.relationForKey("companies")
+            relation?.removeObject(company)
+            currentUser?.saveInBackgroundWithBlock({ (success, error) -> Void in
+                if success {
+                    self.loadObjects()
+                }
+            })
+        }
+    }
+    
+    func add() {
+        searchBar.hidden = false
+        self.tableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
     }
 
     // MARK: Search Bar methods:
@@ -119,6 +159,10 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
         
         // Clear any search criteria
         searchBar.text = ""
+        
+        //finish: http://pinkstone.co.uk/how-to-hide-and-show-a-uisearchbar-in-a-uitableview/
+        searchBar.hidden = true
+        self.tableView.scrollRectToVisible(CGRectMake(0, searchBar.frame.height, 1, 1), animated: true)
         
         // Dismiss the keyboard
         searchBar.resignFirstResponder()
