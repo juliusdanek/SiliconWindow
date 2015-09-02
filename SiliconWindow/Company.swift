@@ -21,5 +21,7 @@ class Company: PFObject, PFSubclassing {
     @NSManaged var location: String?
     @NSManaged var searchText: String?
     @NSManaged var posts: [Post]
+    @NSManaged var website: String?
+    @NSManaged var highConceptPitch: String?
     
 }

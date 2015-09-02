@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		187F5BE61B9100A200E5AB66 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F5BE51B9100A200E5AB66 /* User.swift */; };
+		187F5BE81B9611E000E5AB66 /* CompanyDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F5BE71B9611E000E5AB66 /* CompanyDetailVC.swift */; };
+		187F5BEA1B961C7400E5AB66 /* CompanyPostsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F5BE91B961C7400E5AB66 /* CompanyPostsVC.swift */; };
+		187F5BEC1B96575700E5AB66 /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F5BEB1B96575700E5AB66 /* PostVC.swift */; };
 		18A0C77A1B741DB800CCD363 /* CreatePostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7791B741DB800CCD363 /* CreatePostVC.swift */; };
 		18A0C77C1B741DB800CCD363 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C77B1B741DB800CCD363 /* PostViewController.swift */; };
 		18A0C77F1B741DB800CCD363 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C77D1B741DB800CCD363 /* Main.storyboard */; };
@@ -53,6 +56,9 @@
 
 /* Begin PBXFileReference section */
 		187F5BE51B9100A200E5AB66 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		187F5BE71B9611E000E5AB66 /* CompanyDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyDetailVC.swift; sourceTree = "<group>"; };
+		187F5BE91B961C7400E5AB66 /* CompanyPostsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyPostsVC.swift; sourceTree = "<group>"; };
+		187F5BEB1B96575700E5AB66 /* PostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
 		18A0C7721B741DB800CCD363 /* SiliconWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SiliconWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A0C7761B741DB800CCD363 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18A0C7791B741DB800CCD363 /* CreatePostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePostVC.swift; sourceTree = "<group>"; };
@@ -237,8 +243,11 @@
 				18A0C7BC1B741EF100CCD363 /* FeedVC.swift */,
 				18A0C77B1B741DB800CCD363 /* PostViewController.swift */,
 				34E313F41B93D43100C34C3D /* CommentsTableVC.swift */,
-				18A0C7BA1B741EE700CCD363 /* CompanyTableVC.swift */,
 				18A0C7791B741DB800CCD363 /* CreatePostVC.swift */,
+				187F5BEB1B96575700E5AB66 /* PostVC.swift */,
+				18A0C7BA1B741EE700CCD363 /* CompanyTableVC.swift */,
+				187F5BE71B9611E000E5AB66 /* CompanyDetailVC.swift */,
+				187F5BE91B961C7400E5AB66 /* CompanyPostsVC.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -346,7 +355,10 @@
 				187F5BE61B9100A200E5AB66 /* User.swift in Sources */,
 				18A0C79A1B741DD700CCD363 /* AppDelegate.swift in Sources */,
 				18A0C7A21B741E2E00CCD363 /* Keys.swift in Sources */,
+				187F5BE81B9611E000E5AB66 /* CompanyDetailVC.swift in Sources */,
+				187F5BEA1B961C7400E5AB66 /* CompanyPostsVC.swift in Sources */,
 				18A0C77C1B741DB800CCD363 /* PostViewController.swift in Sources */,
+				187F5BEC1B96575700E5AB66 /* PostVC.swift in Sources */,
 				18A0C7BD1B741EF100CCD363 /* FeedVC.swift in Sources */,
 				346B3A481B7439BF00A7B61D /* NewsViewCell.swift in Sources */,
 				18A0C7B91B741EDF00CCD363 /* Company.swift in Sources */,

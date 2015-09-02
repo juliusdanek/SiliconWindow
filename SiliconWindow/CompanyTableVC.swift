@@ -14,13 +14,13 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.bounces = true
+        
         //barbutton item to submit a company
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "add")
+        switchBarButton(true)
         
         navigationItem.leftBarButtonItem = editButtonItem()
         
@@ -47,7 +47,7 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
         
         // Configure the PFQueryTableView
         self.parseClassName = "Companies"
-        self.pullToRefreshEnabled = true
+        self.pullToRefreshEnabled = false
         self.paginationEnabled = false
         self.placeholderImage = UIImage(named: "placeholder")
     }
@@ -87,7 +87,18 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
             let currentUser = PFUser.currentUser()
             let relation = currentUser!.relationForKey("companies")
             relation.addObject(company)
-            currentUser!.saveInBackground()
+            currentUser!.saveInBackgroundWithBlock({ (success, error) -> Void in
+                if success {
+                    let cell = tableView.cellForRowAtIndexPath(indexPath)
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        cell?.accessoryType = .Checkmark
+                        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+                    })
+                }
+            })
+        } else {
+            // if not selecting new companies, load details of the companies that we already have 
+            performSegueWithIdentifier("showDetail", sender: self)
         }
     }
     
@@ -112,6 +123,10 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
             }
         }
         
+        if searchBar.text == "" {
+            cell.accessoryType = .DisclosureIndicator
+        }
+        
         return cell
     }
     
@@ -130,12 +145,55 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
         }
     }
     
+    //MARK: Button functions
+    
     func add() {
         searchBar.hidden = false
         self.tableView.scrollRectToVisible(CGRectMake(0, 0, 1, 1), animated: true)
+        switchBarButton(false)
+    }
+    
+    func done() {
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition(rawValue: 0)!, animated: false)
+        }) { (success) -> Void in
+            if success {
+                self.searchBar.resignFirstResponder()
+                self.switchBarButton(true)
+                //need to clear the searchBar text before calling loadObjects since the searchBar texts determines query
+                self.searchBar.text = ""
+                self.hideSearchBar()
+                self.loadObjects()
+            }
+        }
+    }
+    
+    func switchBarButton(adding: Bool) {
+        if adding {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "add")
+            navigationItem.leftBarButtonItem?.enabled = true
+        } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "done")
+            navigationItem.leftBarButtonItem?.enabled = false
+        }
+    }
+    
+    //MARK: Seguing functions
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier! == "showDetail" {
+            let indexPath = tableView.indexPathForSelectedRow()
+            let selectedCompany = objectAtIndexPath(indexPath) as! Company
+            let companyDetail = segue.destinationViewController as! CompanyDetailVC
+            companyDetail.company = selectedCompany
+        }
     }
 
     // MARK: Search Bar methods:
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        switchBarButton(false)
+    }
     
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
         
@@ -155,20 +213,20 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
         self.loadObjects()
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        
-        // Clear any search criteria
-        searchBar.text = ""
-        
-        //finish: http://pinkstone.co.uk/how-to-hide-and-show-a-uisearchbar-in-a-uitableview/
-        searchBar.hidden = true
-        self.tableView.scrollRectToVisible(CGRectMake(0, searchBar.frame.height, 1, 1), animated: true)
-        
-        // Dismiss the keyboard
-        searchBar.resignFirstResponder()
-        
-        // Force reload of table data
-        self.loadObjects()
+    
+    //hide function. First it sets new bounds for the table, then in animates the transition and hides the searchbar when complete
+    func hideSearchBar () {
+        var newBounds = self.tableView.bounds
+        if (self.tableView.bounds.origin.y < 44) {
+            newBounds.origin.y = newBounds.origin.y + self.searchBar.bounds.size.height
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                self.tableView.bounds = newBounds
+            }, completion: { (success) -> Void in
+                if success {
+                    self.searchBar.hidden = true
+                }
+            })
+        }
     }
 
 }

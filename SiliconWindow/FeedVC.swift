@@ -46,7 +46,16 @@ class FeedVC: PFQueryTableViewController {
     }
     
     override func queryForTable() -> PFQuery {
+        let currentUser = PFUser.currentUser()
+        //check for relational companies
         var query = PFQuery(className: "Posts")
+        //finding the companies the user likes
+        let relation = currentUser!.relationForKey("companies")
+        //unfortunately this needs to be run on the main thread - we need the companies array before we are able to be sure what companies the user has liked
+        var companies = relation.query()?.findObjects() as! [Company]
+        //now let's check the posts that correspond to the companies that the user is looking for
+        query.whereKey("company", containedIn: companies)
+        //order them by created date
         query.orderByDescending("createdAt")
         return query
     }
@@ -189,7 +198,6 @@ class FeedVC: PFQueryTableViewController {
         let createVC = storyboard?.instantiateViewControllerWithIdentifier("CreatePostVC") as! CreatePostVC
         let navController = UINavigationController(rootViewController: createVC)
         navigationController?.presentViewController(navController, animated: true, completion: nil)
-        
     }
 
 
