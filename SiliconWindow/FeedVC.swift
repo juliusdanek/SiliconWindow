@@ -57,12 +57,18 @@ class FeedVC: PFQueryTableViewController {
         query.whereKey("company", containedIn: companies)
         //order them by created date
         query.orderByDescending("createdAt")
+        //first checking cache, then the network
+        query.cachePolicy = PFCachePolicy.CacheThenNetwork
         return query
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         
         let post = object as! Post
+        
+        let relation = post.relationForKey("upVotes")
+        let query = relation.query()
+        let upVotes = query?.countObjects()
         
         // news cell
         if post.news {
@@ -73,11 +79,22 @@ class FeedVC: PFQueryTableViewController {
             if let post = object as? Post {
                 
                 cell.postTitle.text = post.title
-                cell.numberOfVotes.text = "\(post.votes)"
+                
+                if upVotes != nil {
+                    cell.numberOfVotes.text = "\(upVotes!)"
+                }
+                
                 cell.companyImage.image = UIImage(named: "placeholder")
                 cell.cellId = post.objectId!
                 
                 // convert date to hrs/mins
+                println(post.createdAt)
+                let currentDate = NSDate()
+                println(currentDate)
+                let postDate = post.createdAt
+                let interval = currentDate.timeIntervalSinceDate(postDate!)
+                println(interval)
+                
                 let calendar = NSCalendar.currentCalendar()
                 let comp = calendar.components((.CalendarUnitDay | .CalendarUnitHour | .CalendarUnitMinute), fromDate: post.createdAt!)
                 let day = comp.day
@@ -88,6 +105,7 @@ class FeedVC: PFQueryTableViewController {
 
                 // find associated company name & icon
                 let retrieveCompany = PFQuery(className:"Companies")
+                retrieveCompany.cachePolicy = .CacheThenNetwork
                 if let companyId = post.company.objectId {
                     retrieveCompany.whereKey("objectId", equalTo: companyId)
                     retrieveCompany.findObjectsInBackgroundWithBlock {
@@ -127,7 +145,11 @@ class FeedVC: PFQueryTableViewController {
                 
                 cell.postTitle.text = post.title
                 cell.newsLabel.hidden = true
-                cell.numberOfVotes.text = "\(post.votes)"
+                
+                if upVotes != nil {
+                    cell.numberOfVotes.text = "\(upVotes!)"
+                }
+                
                 cell.companyImage.image = UIImage(named: "placeholder")
                 cell.cellId = post.objectId!
                 

@@ -398,11 +398,11 @@
                                         <mask key="constraints">
                                             <exclude reference="hQX-fG-7dH"/>
                                             <exclude reference="sbE-DT-Aas"/>
-                                            <exclude reference="mnR-Dq-Gew"/>
                                             <exclude reference="fvm-m6-9xv"/>
+                                            <exclude reference="mnR-Dq-Gew"/>
+                                            <exclude reference="64S-hZ-tHA"/>
                                             <exclude reference="aHb-8T-UcO"/>
                                             <exclude reference="pgj-Cx-Zf6"/>
-                                            <exclude reference="64S-hZ-tHA"/>
                                             <exclude reference="YAs-cw-yu1"/>
                                         </mask>
                                     </variation>
@@ -924,6 +924,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ma7-dS-qMU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="411" y="856"/>
         </scene>
     </scenes>
     <resources>

@@ -28,6 +28,7 @@ class NewsViewCell: PFTableViewCell {
     var downTapped: Bool = false
     var icon: PFFile = PFFile()
    
+    
     // vote post up
     @IBAction func upVote(sender: AnyObject) {
         
@@ -48,11 +49,12 @@ class NewsViewCell: PFTableViewCell {
             self.numberOfVotes.text = String(numVotes! + 2)
             
             // save vote
+            
             var saveVote = PFQuery(className:"Posts")
             saveVote.getObjectInBackgroundWithId(cellId) { (Post: PFObject?, error: NSError?) -> Void in
                 
                 if error == nil && Post != nil {
-                    Post!.incrementKey("votes", byAmount: 2)
+                    Post!.relationForKey("upVotes").addObject(PFUser.currentUser()!)
                     Post!.saveInBackgroundWithBlock {
                         (success: Bool, error: NSError?) -> Void in
                         if (success) {
@@ -83,7 +85,7 @@ class NewsViewCell: PFTableViewCell {
             saveVote.getObjectInBackgroundWithId(cellId) { (Post: PFObject?, error: NSError?) -> Void in
                 
                 if error == nil && Post != nil {
-                    Post!.incrementKey("votes", byAmount: -1)
+                    Post!.relationForKey("upVotes").removeObject(PFUser.currentUser()!)
                     Post!.saveInBackgroundWithBlock {
                         (success: Bool, error: NSError?) -> Void in
                         if (success) {
@@ -112,7 +114,7 @@ class NewsViewCell: PFTableViewCell {
             saveVote.getObjectInBackgroundWithId(cellId) { (Post: PFObject?, error: NSError?) -> Void in
                 
                 if error == nil && Post != nil {
-                    Post!.incrementKey("votes")
+                    Post!.relationForKey("upVotes").addObject(PFUser.currentUser()!)
                     Post!.saveInBackgroundWithBlock {
                         (success: Bool, error: NSError?) -> Void in
                         if (success) {
@@ -128,101 +130,101 @@ class NewsViewCell: PFTableViewCell {
     }
     
     // vote post down
-    @IBAction func downVote(sender: AnyObject) {
-        
-        // already voted up
-        if(upTapped) {
-            
-            upTapped = false
-            downTapped = true
-            
-            // change button image
-            let image = UIImage(named: "upArrow") as UIImage!
-            self.upArrow.setImage(image, forState: .Normal)
-            let imageDown = UIImage(named: "downArrowRed") as UIImage!
-            self.downArrow.setImage(imageDown, forState: .Normal)
-            
-            // change text
-            let numVotes:Int? = (self.numberOfVotes.text)?.toInt()
-            self.numberOfVotes.text = String(numVotes! - 2)
-            
-            // save vote
-            var saveVote = PFQuery(className:"Posts")
-            saveVote.getObjectInBackgroundWithId(cellId) { (Post: PFObject?, error: NSError?) -> Void in
-                
-                if error == nil && Post != nil {
-                    Post!.incrementKey("votes", byAmount: -2)
-                    Post!.saveInBackgroundWithBlock {
-                        (success: Bool, error: NSError?) -> Void in
-                        if (success) {
-                        } else { }
-                    }
-                }
-                else {  println(error) }
-                
-            }
-            
-        }
-
-        // already down voted
-        else if(downTapped) {
-            
-            downTapped = false
-            
-            // change button image
-            let image = UIImage(named: "downArrow") as UIImage!
-            self.downArrow.setImage(image, forState: .Normal)
-            
-            // change text
-            let numVotes:Int? = (self.numberOfVotes.text)?.toInt()
-            self.numberOfVotes.text = String(numVotes! + 1)
-            
-            // save vote
-            var saveVote = PFQuery(className:"Posts")
-            saveVote.getObjectInBackgroundWithId(cellId) { (Post: PFObject?, error: NSError?) -> Void in
-                
-                if error == nil && Post != nil {
-                    Post!.incrementKey("votes")
-                    Post!.saveInBackgroundWithBlock {
-                        (success: Bool, error: NSError?) -> Void in
-                        if (success) {
-                        } else { }
-                    }
-                }
-                else {  println(error) }
-                
-            }
-            
-            
-        } else {
-            
-            downTapped = true
-            
-            // change button image
-            let image = UIImage(named: "downArrowRed") as UIImage!
-            self.downArrow.setImage(image, forState: .Normal)
-            
-            // change text
-            let numVotes:Int? = (self.numberOfVotes.text)?.toInt()
-            self.numberOfVotes.text = String(numVotes! - 1)
-            
-            // save vote
-            var saveVote = PFQuery(className:"Posts")
-            saveVote.getObjectInBackgroundWithId(cellId) { (Post: PFObject?, error: NSError?) -> Void in
-                
-                if error == nil && Post != nil {
-                    Post!.incrementKey("votes", byAmount: -1)
-                    Post!.saveInBackgroundWithBlock {
-                        (success: Bool, error: NSError?) -> Void in
-                        if (success) {
-                        } else { }
-                    }
-                }
-                else {  println(error) }
-                
-            }
-            
-        }
-    }
+//    @IBAction func downVote(sender: AnyObject) {
+//        
+//        // already voted up
+//        if(upTapped) {
+//            
+//            upTapped = false
+//            downTapped = true
+//            
+//            // change button image
+//            let image = UIImage(named: "upArrow") as UIImage!
+//            self.upArrow.setImage(image, forState: .Normal)
+//            let imageDown = UIImage(named: "downArrowRed") as UIImage!
+//            self.downArrow.setImage(imageDown, forState: .Normal)
+//            
+//            // change text
+//            let numVotes:Int? = (self.numberOfVotes.text)?.toInt()
+//            self.numberOfVotes.text = String(numVotes! - 2)
+//            
+//            // save vote
+//            var saveVote = PFQuery(className:"Posts")
+//            saveVote.getObjectInBackgroundWithId(cellId) { (Post: PFObject?, error: NSError?) -> Void in
+//                
+//                if error == nil && Post != nil {
+//                    Post!.incrementKey("votes", byAmount: -2)
+//                    Post!.saveInBackgroundWithBlock {
+//                        (success: Bool, error: NSError?) -> Void in
+//                        if (success) {
+//                        } else { }
+//                    }
+//                }
+//                else {  println(error) }
+//                
+//            }
+//            
+//        }
+//
+//        // already down voted
+//        else if(downTapped) {
+//            
+//            downTapped = false
+//            
+//            // change button image
+//            let image = UIImage(named: "downArrow") as UIImage!
+//            self.downArrow.setImage(image, forState: .Normal)
+//            
+//            // change text
+//            let numVotes:Int? = (self.numberOfVotes.text)?.toInt()
+//            self.numberOfVotes.text = String(numVotes! + 1)
+//            
+//            // save vote
+//            var saveVote = PFQuery(className:"Posts")
+//            saveVote.getObjectInBackgroundWithId(cellId) { (Post: PFObject?, error: NSError?) -> Void in
+//                
+//                if error == nil && Post != nil {
+//                    Post!.incrementKey("votes")
+//                    Post!.saveInBackgroundWithBlock {
+//                        (success: Bool, error: NSError?) -> Void in
+//                        if (success) {
+//                        } else { }
+//                    }
+//                }
+//                else {  println(error) }
+//                
+//            }
+//            
+//            
+//        } else {
+//            
+//            downTapped = true
+//            
+//            // change button image
+//            let image = UIImage(named: "downArrowRed") as UIImage!
+//            self.downArrow.setImage(image, forState: .Normal)
+//            
+//            // change text
+//            let numVotes:Int? = (self.numberOfVotes.text)?.toInt()
+//            self.numberOfVotes.text = String(numVotes! - 1)
+//            
+//            // save vote
+//            var saveVote = PFQuery(className:"Posts")
+//            saveVote.getObjectInBackgroundWithId(cellId) { (Post: PFObject?, error: NSError?) -> Void in
+//                
+//                if error == nil && Post != nil {
+//                    Post!.incrementKey("votes", byAmount: -1)
+//                    Post!.saveInBackgroundWithBlock {
+//                        (success: Bool, error: NSError?) -> Void in
+//                        if (success) {
+//                        } else { }
+//                    }
+//                }
+//                else {  println(error) }
+//                
+//            }
+//            
+//        }
+//    }
     
 }

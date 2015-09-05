@@ -26,14 +26,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Post.registerSubclass()
         Comment.registerSubclass()
 //        User.registerSubclass()
-        
+
         Parse.setApplicationId(Keys().appID,
             clientKey: Keys().clientID)
+
+        signup()
         
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         
-        signup()
         
         return true
     }
@@ -61,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func signup() {
+        println("signing up")
         //checking if there is a user cached
         var currentUser = PFUser.currentUser()
         if currentUser != nil {
@@ -68,28 +70,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("user still logged in")
             return
         } else {
-            //if not, try to log in with the unique device ID --> All listings will always be associated with a device
-            PFUser.logInWithUsernameInBackground(UIDevice.currentDevice().identifierForVendor.UUIDString, password:"SiliconWindow") {
-                (user: PFUser?, error: NSError?) -> Void in
-                if user != nil {
-                    println("successful login")
-                    // Do stuff after successful login.
-                } else {
-                    //if you can't log in, sign the user up using the device ID and the same password
-                    var user = PFUser()
-                    user.username = UIDevice.currentDevice().identifierForVendor.UUIDString
-                    user.password = "SiliconWindow"
-                    // other fields can be set just like with PFObject
-                    user.signUpInBackgroundWithBlock({ (success, error) -> Void in
-                        if let error = error {
-                            let errorString = error.userInfo?["error"] as? NSString
-                            println(errorString)
-                        } else {
-                            println("successful first sign up")
-                            return
-                        }
-                    })
-                }
+            var error: NSError? = NSError()
+            PFUser.logInWithUsername(UIDevice.currentDevice().identifierForVendor.UUIDString, password: "SiliconWindow", error: &error)
+            if error != nil {
+                println("signing new user up")
+                var user = PFUser()
+                user.username = UIDevice.currentDevice().identifierForVendor.UUIDString
+                user.password = "SiliconWindow"
+                user.signUp()
+                return
+            } else {
+                println("logged user in")
+                return
             }
         }
     }
