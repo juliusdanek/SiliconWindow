@@ -66,9 +66,11 @@ class FeedVC: PFQueryTableViewController {
         
         let post = object as! Post
         
-        let relation = post.relationForKey("upVotes")
-        let query = relation.query()
-        let upVotes = query?.countObjects()
+        
+        let currentDate = NSDate()
+        let postDate = post.createdAt
+        let interval = currentDate.timeIntervalSinceDate(postDate!)
+        var timePosted: String
         
         // news cell
         if post.news {
@@ -80,28 +82,62 @@ class FeedVC: PFQueryTableViewController {
                 
                 cell.postTitle.text = post.title
                 
-                if upVotes != nil {
-                    cell.numberOfVotes.text = "\(upVotes!)"
-                }
+                
+                let relationUp = post.relationForKey("upVotes")
+                let queryUp = relationUp.query()
+                let relationDown = post.relationForKey("downVotes")
+                let queryDown = relationDown.query()
+                queryUp?.findObjectsInBackgroundWithBlock({ (usersUp, error) -> Void in
+                    if error == nil {
+                        let usersUpArray = usersUp as! [PFUser]
+                        queryDown?.findObjectsInBackgroundWithBlock({ (usersDown, error) -> Void in
+                            if error == nil {
+                                let usersDownArray = usersDown as! [PFUser]
+                                //                            println("\(downCount) downvotes at \(post.title)")
+                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                    let votes = usersUpArray.count - usersDown!.count
+                                    cell.numberOfVotes.text = "\(votes)"
+                                    for user in usersUpArray {
+                                        if user.username == PFUser.currentUser()!.username! {
+                                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                                cell.upTapped = true
+                                                let image = UIImage(named: "upArrowRed") as UIImage!
+                                                cell.upArrow.setImage(image, forState: .Normal)
+                                            })
+                                            break
+                                        }
+                                    }
+                                    if cell.upTapped == false {
+                                        for user in usersDownArray {
+                                            if user.username == PFUser.currentUser()!.username! {
+                                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                                    cell.downTapped = true
+                                                    let image = UIImage(named: "downArrowRed") as UIImage!
+                                                    cell.downArrow.setImage(image, forState: .Normal)
+                                                })
+                                                break
+                                            }
+                                        }
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
                 
                 cell.companyImage.image = UIImage(named: "placeholder")
                 cell.cellId = post.objectId!
                 
-                // convert date to hrs/mins
-                println(post.createdAt)
-                let currentDate = NSDate()
-                println(currentDate)
-                let postDate = post.createdAt
-                let interval = currentDate.timeIntervalSinceDate(postDate!)
-                println(interval)
+                //MARK: Converting the timeintervals into meaningful chunks
+                if interval < 3600 {
+                    timePosted = "\(Int(floor(interval/60))) minutes ago"
+                } else if interval < 86400 {
+                    timePosted = "\(Int(floor(interval/3600))) hours ago"
+                } else {
+                    timePosted = "\(Int(floor(interval/86400))) days ago"
+                }
                 
-                let calendar = NSCalendar.currentCalendar()
-                let comp = calendar.components((.CalendarUnitDay | .CalendarUnitHour | .CalendarUnitMinute), fromDate: post.createdAt!)
-                let day = comp.day
-                let hour = comp.hour
-                let minute = comp.minute
-                cell.timePosted.text = String(format: "◷ %d %@ %d %@ %d %@", day, "days", hour, "hrs", minute, "mins ago")
-                var string:String
+                cell.timePosted.text = timePosted
 
                 // find associated company name & icon
                 let retrieveCompany = PFQuery(className:"Companies")
@@ -140,25 +176,67 @@ class FeedVC: PFQueryTableViewController {
             
             var cell = tableView.dequeueReusableCellWithIdentifier("NewsViewCell") as! NewsViewCell
             
+            let relationUp = post.relationForKey("upVotes")
+            let queryUp = relationUp.query()
+            let relationDown = post.relationForKey("downVotes")
+            let queryDown = relationDown.query()
+            queryUp?.findObjectsInBackgroundWithBlock({ (usersUp, error) -> Void in
+                if error == nil {
+                    let usersUpArray = usersUp as! [PFUser]
+                    queryDown?.findObjectsInBackgroundWithBlock({ (usersDown, error) -> Void in
+                        if error == nil {
+                            let usersDownArray = usersDown as! [PFUser]
+//                            println("\(downCount) downvotes at \(post.title)")
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                let votes = usersUpArray.count - usersDown!.count
+                                cell.numberOfVotes.text = "\(votes)"
+                                for user in usersUpArray {
+                                    if user.username == PFUser.currentUser()!.username! {
+                                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                            cell.upTapped = true
+                                            let image = UIImage(named: "upArrowRed") as UIImage!
+                                            cell.upArrow.setImage(image, forState: .Normal)
+                                        })
+                                        break
+                                    }
+                                }
+                                if cell.upTapped == false {
+                                    for user in usersDownArray {
+                                        if user.username == PFUser.currentUser()!.username! {
+                                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                                cell.downTapped = true
+                                                let image = UIImage(named: "downArrowRed") as UIImage!
+                                                cell.downArrow.setImage(image, forState: .Normal)
+                                            })
+                                            break
+                                        }
+                                    }
+                                }
+                            })
+                        }
+                    })
+                }
+            })
+            
             // getting the title and images
             if let post = object as? Post {
                 
                 cell.postTitle.text = post.title
                 cell.newsLabel.hidden = true
                 
-                if upVotes != nil {
-                    cell.numberOfVotes.text = "\(upVotes!)"
-                }
-                
                 cell.companyImage.image = UIImage(named: "placeholder")
                 cell.cellId = post.objectId!
                 
                 // convert date to hrs/mins
-                let calendar = NSCalendar.currentCalendar()
-                let comp = calendar.components((.CalendarUnitHour | .CalendarUnitMinute), fromDate: post.createdAt!)
-                let hour = comp.hour
-                let minute = comp.minute
-                cell.timePosted.text = String(format: "◷ %d %@ %d %@", hour, "hrs", minute, "mins ago")
+                if interval < 3600 {
+                    timePosted = "\(Int(floor(interval/60))) minutes ago"
+                } else if interval < 86400 {
+                    timePosted = "\(Int(floor(interval/3600))) hours ago"
+                } else {
+                    timePosted = "\(Int(floor(interval/86400))) days ago"
+                }
+                
+                cell.timePosted.text = timePosted
                 
                 // find associated company name & icon
                 let retrieveCompany = PFQuery(className:"Companies")
@@ -212,7 +290,6 @@ class FeedVC: PFQueryTableViewController {
             postPage.timeString = cell.timePosted.text
             postPage.companyLogo = cell.icon as PFFile
         }
-        
     }
     
     //pushing a new navcontroller onto navcontroller with modal view
