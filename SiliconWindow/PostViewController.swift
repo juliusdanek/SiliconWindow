@@ -15,7 +15,7 @@ class PostViewController: UIViewController {
     // public vars
     var postId: String!
     var timeString: String!
-    var companyLogo: PFFile = PFFile()
+    var companyLogo: PFFile?
     var postTitle: String = ""
 
     // connections
@@ -25,7 +25,7 @@ class PostViewController: UIViewController {
     @IBOutlet var containerView: UIView!
     @IBOutlet var commentField: UITextField!
    
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
@@ -68,7 +68,7 @@ class PostViewController: UIViewController {
     // post a comment
     @IBAction func postComment(sender: AnyObject) {
         
-        var comment = PFObject(className:"Comments")
+        let comment = PFObject(className:"Comments")
         comment["commentString"] = self.commentField.text
         comment["postId"] = self.postId
         comment.saveInBackgroundWithBlock {
@@ -76,7 +76,7 @@ class PostViewController: UIViewController {
             if (success) {
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    var tableVC : CommentsTableVC = self.childViewControllers[0] as! CommentsTableVC
+                    let tableVC : CommentsTableVC = self.childViewControllers[0] as! CommentsTableVC
                     tableVC.viewDidLoad()
                 })
                 

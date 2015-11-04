@@ -22,7 +22,7 @@ class CompanyPostsVC: PFQueryTableViewController, CompanyDetailVCDelegate {
     }
     
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         self.parseClassName = "Posts"
@@ -34,7 +34,7 @@ class CompanyPostsVC: PFQueryTableViewController, CompanyDetailVCDelegate {
     
     //query for table depending on what type is looked for (controlled by segmented control and delegate methods)
     override func queryForTable() -> PFQuery {
-        var query = PFQuery(className: "Posts")
+        let query = PFQuery(className: "Posts")
         query.whereKey("company", equalTo: company!)
         if queryType == "news" {
             query.whereKey("news", equalTo: true)

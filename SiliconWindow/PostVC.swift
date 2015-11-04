@@ -61,7 +61,7 @@ class PostVC: UIViewController {
         newPost.sentiment = segControl.selectedSegmentIndex
         newPost.company = company
         newPost.post = textField.text
-        newPost.title = titleField.text
+        newPost.title = titleField.text!
         if newsSwitch.on {
             newPost.news = false
         } else {

@@ -35,7 +35,7 @@ class CreatePostVC: PFQueryTableViewController {
     //functions to show tableviewcell
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("CompanyViewCell") as! CompanyViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("CompanyViewCell") as! CompanyViewCell
         
         
         //setting name, location and image
@@ -56,7 +56,7 @@ class CreatePostVC: PFQueryTableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let destVC = segue.destinationViewController as! PostVC
-        let indexPath = tableView.indexPathForSelectedRow()
+        let indexPath = tableView.indexPathForSelectedRow!
         let selectedCompany = objectAtIndexPath(indexPath) as! Company
         destVC.company = selectedCompany
     }

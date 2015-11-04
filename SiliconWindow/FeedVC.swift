@@ -13,7 +13,7 @@ import ParseUI
 class FeedVC: PFQueryTableViewController {
     
  
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         self.parseClassName = "Posts"
@@ -48,17 +48,21 @@ class FeedVC: PFQueryTableViewController {
     override func queryForTable() -> PFQuery {
         let currentUser = PFUser.currentUser()
         //check for relational companies
-        var query = PFQuery(className: "Posts")
+        let query = PFQuery(className: "Posts")
         //finding the companies the user likes
         let relation = currentUser!.relationForKey("companies")
         //unfortunately this needs to be run on the main thread - we need the companies array before we are able to be sure what companies the user has liked
-        var companies = relation.query()?.findObjects() as! [Company]
-        //now let's check the posts that correspond to the companies that the user is looking for
-        query.whereKey("company", containedIn: companies)
-        //order them by created date
-        query.orderByDescending("createdAt")
-        //first checking cache, then the network
-        query.cachePolicy = PFCachePolicy.CacheThenNetwork
+        do {
+            let companies = try relation.query()?.findObjects() as! [Company]
+            //now let's check the posts that correspond to the companies that the user is looking for
+            query.whereKey("company", containedIn: companies)
+            //order them by created date
+            query.orderByDescending("createdAt")
+            //first checking cache, then the network
+            query.cachePolicy = PFCachePolicy.CacheThenNetwork
+        } catch _ {
+            print("error finding companies")
+        }
         return query
     }
     
@@ -73,108 +77,18 @@ class FeedVC: PFQueryTableViewController {
         var timePosted: String
         
         // news cell
-        if post.news {
-            
-            var cell = tableView.dequeueReusableCellWithIdentifier("NewsViewCell") as! NewsViewCell
-            
-            // getting the title and images
-            if let post = object as? Post {
-                
-                cell.postTitle.text = post.title
-                
-                
-                let relationUp = post.relationForKey("upVotes")
-                let queryUp = relationUp.query()
-                let relationDown = post.relationForKey("downVotes")
-                let queryDown = relationDown.query()
-                queryUp?.findObjectsInBackgroundWithBlock({ (usersUp, error) -> Void in
-                    if error == nil {
-                        let usersUpArray = usersUp as! [PFUser]
-                        queryDown?.findObjectsInBackgroundWithBlock({ (usersDown, error) -> Void in
-                            if error == nil {
-                                let usersDownArray = usersDown as! [PFUser]
-                                //                            println("\(downCount) downvotes at \(post.title)")
-                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                    let votes = usersUpArray.count - usersDown!.count
-                                    cell.numberOfVotes.text = "\(votes)"
-                                    for user in usersUpArray {
-                                        if user.username == PFUser.currentUser()!.username! {
-                                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                                cell.upTapped = true
-                                                let image = UIImage(named: "upArrowRed") as UIImage!
-                                                cell.upArrow.setImage(image, forState: .Normal)
-                                            })
-                                            break
-                                        }
-                                    }
-                                    if cell.upTapped == false {
-                                        for user in usersDownArray {
-                                            if user.username == PFUser.currentUser()!.username! {
-                                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                                    cell.downTapped = true
-                                                    let image = UIImage(named: "downArrowRed") as UIImage!
-                                                    cell.downArrow.setImage(image, forState: .Normal)
-                                                })
-                                                break
-                                            }
-                                        }
-                                    }
-                                })
-                            }
-                        })
-                    }
-                })
-                
-                cell.companyImage.image = UIImage(named: "placeholder")
-                cell.cellId = post.objectId!
-                
-                //MARK: Converting the timeintervals into meaningful chunks
-                if interval < 3600 {
-                    timePosted = "\(Int(floor(interval/60))) minutes ago"
-                } else if interval < 86400 {
-                    timePosted = "\(Int(floor(interval/3600))) hours ago"
-                } else {
-                    timePosted = "\(Int(floor(interval/86400))) days ago"
-                }
-                
-                cell.timePosted.text = timePosted
-
-                // find associated company name & icon
-                let retrieveCompany = PFQuery(className:"Companies")
-                retrieveCompany.cachePolicy = .CacheThenNetwork
-                if let companyId = post.company.objectId {
-                    retrieveCompany.whereKey("objectId", equalTo: companyId)
-                    retrieveCompany.findObjectsInBackgroundWithBlock {
-                        (objects: [AnyObject]?, error: NSError?) -> Void in
-                        if error == nil {
-                            // The find succeeded.
-                            if let objects = objects as? [Company] {
-                                for object in objects {
-                                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                        // cell.companyName.text = object.name
-                                        if object.imageFile != nil {
-                                            cell.icon = object.imageFile!
-                                            cell.companyImage.file = object.imageFile!
-                                            cell.companyImage.loadInBackground()
-                                        }
-                                    })
-                                }
-                            }
-                        } else {
-                            println("Error: \(error!) \(error!.userInfo!)")
-                        }
-                    }
-                }
-                
-            }
-            
-            return cell
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier("NewsViewCell") as! NewsViewCell
         
-        // post cell
-        else {
+        // getting the title and images
+        if let post = object as? Post {
             
-            var cell = tableView.dequeueReusableCellWithIdentifier("NewsViewCell") as! NewsViewCell
+            cell.postTitle.text = post.title
+            
+            if post.news {
+                cell.newsLabel.text = "from \(post.post)"
+            } else {
+                cell.newsLabel.hidden = true
+            }
             
             let relationUp = post.relationForKey("upVotes")
             let queryUp = relationUp.query()
@@ -186,7 +100,7 @@ class FeedVC: PFQueryTableViewController {
                     queryDown?.findObjectsInBackgroundWithBlock({ (usersDown, error) -> Void in
                         if error == nil {
                             let usersDownArray = usersDown as! [PFUser]
-//                            println("\(downCount) downvotes at \(post.title)")
+                            //                            println("\(downCount) downvotes at \(post.title)")
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                 let votes = usersUpArray.count - usersDown!.count
                                 cell.numberOfVotes.text = "\(votes)"
@@ -218,58 +132,50 @@ class FeedVC: PFQueryTableViewController {
                 }
             })
             
-            // getting the title and images
-            if let post = object as? Post {
-                
-                cell.postTitle.text = post.title
-                cell.newsLabel.hidden = true
-                
-                cell.companyImage.image = UIImage(named: "placeholder")
-                cell.cellId = post.objectId!
-                
-                // convert date to hrs/mins
-                if interval < 3600 {
-                    timePosted = "\(Int(floor(interval/60))) minutes ago"
-                } else if interval < 86400 {
-                    timePosted = "\(Int(floor(interval/3600))) hours ago"
-                } else {
-                    timePosted = "\(Int(floor(interval/86400))) days ago"
-                }
-                
-                cell.timePosted.text = timePosted
-                
-                // find associated company name & icon
-                let retrieveCompany = PFQuery(className:"Companies")
-                if let companyId = post.company.objectId {
-                    retrieveCompany.whereKey("objectId", equalTo: companyId)
-                    retrieveCompany.findObjectsInBackgroundWithBlock {
-                        (objects: [AnyObject]?, error: NSError?) -> Void in
-                        if error == nil {
-                            // The find succeeded.
-                            if let objects = objects as? [Company] {
-                                for object in objects {
-                                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                        // cell.companyName.text = object.name
-                                        if object.imageFile != nil {
-                                            cell.icon = object.imageFile!
-                                            cell.companyImage.file = object.imageFile!
-                                            cell.companyImage.loadInBackground()
-                                        }
-                                    })
-                                }
-                            }
-                        } else {
-                            println("Error: \(error!) \(error!.userInfo!)")
-                        }
-                    }
-                }
-                
+            cell.companyImage.image = UIImage(named: "placeholder")
+            cell.cellId = post.objectId!
+            
+            //MARK: Converting the timeintervals into meaningful chunks
+            if interval < 3600 {
+                timePosted = "\(Int(floor(interval/60))) minutes ago"
+            } else if interval < 86400 {
+                timePosted = "\(Int(floor(interval/3600))) hours ago"
+            } else {
+                timePosted = "\(Int(floor(interval/86400))) days ago"
             }
             
-            return cell
+            cell.timePosted.text = timePosted
+
+//            find associated company name & icon
+            let retrieveCompany = PFQuery(className:"Companies")
+            retrieveCompany.cachePolicy = .CacheThenNetwork
+            if let companyId = post.company.objectId {
+                retrieveCompany.whereKey("objectId", equalTo: companyId)
+                retrieveCompany.findObjectsInBackgroundWithBlock {
+                    (objects, error) -> Void in
+                    if error == nil {
+                        // The find succeeded.
+                        if let objects = objects as? [Company] {
+                            for object in objects {
+                                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                    // cell.companyName.text = object.name
+                                    if object.imageFile != nil {
+                                        cell.icon = object.imageFile!
+                                        cell.companyImage.file = object.imageFile!
+                                        cell.companyImage.loadInBackground()
+                                    }
+                                })
+                            }
+                        }
+                    } else {
+                        print("Error: \(error!) \(error!.userInfo)")
+                    }
+                }
+            }
+            
         }
         
-        
+        return cell
     }
     
     // selected a cell --> go to post page
@@ -288,7 +194,7 @@ class FeedVC: PFQueryTableViewController {
             postPage.postId = cell.cellId as String
             postPage.postTitle = cell.postTitle.text! as String
             postPage.timeString = cell.timePosted.text
-            postPage.companyLogo = cell.icon as PFFile
+            postPage.companyLogo = cell.icon as PFFile!
         }
     }
     

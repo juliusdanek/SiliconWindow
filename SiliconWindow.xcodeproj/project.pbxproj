@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		187F5BE61B9100A200E5AB66 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F5BE51B9100A200E5AB66 /* User.swift */; };
 		187F5BE81B9611E000E5AB66 /* CompanyDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F5BE71B9611E000E5AB66 /* CompanyDetailVC.swift */; };
 		187F5BEA1B961C7400E5AB66 /* CompanyPostsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F5BE91B961C7400E5AB66 /* CompanyPostsVC.swift */; };
 		187F5BEC1B96575700E5AB66 /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187F5BEB1B96575700E5AB66 /* PostVC.swift */; };
@@ -18,9 +17,6 @@
 		18A0C7841B741DB800CCD363 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18A0C7821B741DB800CCD363 /* LaunchScreen.xib */; };
 		18A0C7901B741DB900CCD363 /* SiliconWindowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C78F1B741DB900CCD363 /* SiliconWindowTests.swift */; };
 		18A0C79A1B741DD700CCD363 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7991B741DD700CCD363 /* AppDelegate.swift */; };
-		18A0C79E1B741E0100CCD363 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A0C79B1B741E0100CCD363 /* Bolts.framework */; };
-		18A0C79F1B741E0100CCD363 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A0C79C1B741E0100CCD363 /* Parse.framework */; };
-		18A0C7A01B741E0100CCD363 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A0C79D1B741E0100CCD363 /* ParseUI.framework */; };
 		18A0C7A21B741E2E00CCD363 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7A11B741E2E00CCD363 /* Keys.swift */; };
 		18A0C7A41B741E3F00CCD363 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A0C7A31B741E3F00CCD363 /* AudioToolbox.framework */; };
 		18A0C7A61B741E4300CCD363 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A0C7A51B741E4300CCD363 /* CFNetwork.framework */; };
@@ -36,12 +32,12 @@
 		18A0C7BB1B741EE700CCD363 /* CompanyTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7BA1B741EE700CCD363 /* CompanyTableVC.swift */; };
 		18A0C7BD1B741EF100CCD363 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A0C7BC1B741EF100CCD363 /* FeedVC.swift */; };
 		18BE15C31B744E4E0004795C /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE15C21B744E4E0004795C /* Comment.swift */; };
-		18BE15C51B7454760004795C /* PostViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE15C41B7454750004795C /* PostViewCell.swift */; };
 		346B3A481B7439BF00A7B61D /* NewsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346B3A471B7439BF00A7B61D /* NewsViewCell.swift */; };
 		346B3A4A1B7439D200A7B61D /* CompanyViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346B3A491B7439D200A7B61D /* CompanyViewCell.swift */; };
 		346B3A4C1B743BC300A7B61D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346B3A4B1B743BC300A7B61D /* Post.swift */; };
 		34E313F51B93D43100C34C3D /* CommentsTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E313F41B93D43100C34C3D /* CommentsTableVC.swift */; };
 		34E313F71B93D53700C34C3D /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E313F61B93D53700C34C3D /* CommentCell.swift */; };
+		E64C0794831D62D2133BA9A7 /* Pods_SiliconWindow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2AAE0E5FF22B01BB92C99C3 /* Pods_SiliconWindow.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		187F5BE51B9100A200E5AB66 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		17C80C64D829EBEACEFC5DED /* Pods-SiliconWindow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SiliconWindow.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SiliconWindow/Pods-SiliconWindow.debug.xcconfig"; sourceTree = "<group>"; };
 		187F5BE71B9611E000E5AB66 /* CompanyDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyDetailVC.swift; sourceTree = "<group>"; };
 		187F5BE91B961C7400E5AB66 /* CompanyPostsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyPostsVC.swift; sourceTree = "<group>"; };
 		187F5BEB1B96575700E5AB66 /* PostVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
@@ -70,9 +66,6 @@
 		18A0C78E1B741DB800CCD363 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18A0C78F1B741DB900CCD363 /* SiliconWindowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SiliconWindowTests.swift; sourceTree = "<group>"; };
 		18A0C7991B741DD700CCD363 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		18A0C79B1B741E0100CCD363 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		18A0C79C1B741E0100CCD363 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
-		18A0C79D1B741E0100CCD363 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
 		18A0C7A11B741E2E00CCD363 /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		18A0C7A31B741E3F00CCD363 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		18A0C7A51B741E4300CCD363 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -88,12 +81,13 @@
 		18A0C7BA1B741EE700CCD363 /* CompanyTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyTableVC.swift; sourceTree = "<group>"; };
 		18A0C7BC1B741EF100CCD363 /* FeedVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		18BE15C21B744E4E0004795C /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		18BE15C41B7454750004795C /* PostViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostViewCell.swift; sourceTree = "<group>"; };
 		346B3A471B7439BF00A7B61D /* NewsViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewCell.swift; sourceTree = "<group>"; };
 		346B3A491B7439D200A7B61D /* CompanyViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompanyViewCell.swift; sourceTree = "<group>"; };
 		346B3A4B1B743BC300A7B61D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		34E313F41B93D43100C34C3D /* CommentsTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentsTableVC.swift; sourceTree = "<group>"; };
 		34E313F61B93D53700C34C3D /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		691355FE0AFB74D7B8B4D0D8 /* Pods-SiliconWindow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SiliconWindow.release.xcconfig"; path = "Pods/Target Support Files/Pods-SiliconWindow/Pods-SiliconWindow.release.xcconfig"; sourceTree = "<group>"; };
+		F2AAE0E5FF22B01BB92C99C3 /* Pods_SiliconWindow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SiliconWindow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,9 +105,7 @@
 				18A0C7A81B741E4900CCD363 /* CoreGraphics.framework in Frameworks */,
 				18A0C7A61B741E4300CCD363 /* CFNetwork.framework in Frameworks */,
 				18A0C7A41B741E3F00CCD363 /* AudioToolbox.framework in Frameworks */,
-				18A0C7A01B741E0100CCD363 /* ParseUI.framework in Frameworks */,
-				18A0C79F1B741E0100CCD363 /* Parse.framework in Frameworks */,
-				18A0C79E1B741E0100CCD363 /* Bolts.framework in Frameworks */,
+				E64C0794831D62D2133BA9A7 /* Pods_SiliconWindow.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +126,7 @@
 				18A0C78C1B741DB800CCD363 /* SiliconWindowTests */,
 				18A0C7731B741DB800CCD363 /* Products */,
 				18A0C7B71B741E8500CCD363 /* Frameworks */,
+				8EB99946EFC4D1023D1FE72B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,7 +145,7 @@
 				18A0C7991B741DD700CCD363 /* AppDelegate.swift */,
 				346B3A431B742DFF00A7B61D /* Helpers & Keys */,
 				346B3A4E1B743C4200A7B61D /* Views */,
-				346B3A4D1B743BC900A7B61D /* Data for Cells */,
+				346B3A4D1B743BC900A7B61D /* Data Model */,
 				346B3A441B74395100A7B61D /* Table Cells */,
 				18A0C7821B741DB800CCD363 /* LaunchScreen.xib */,
 				18A0C77D1B741DB800CCD363 /* Main.storyboard */,
@@ -200,9 +193,7 @@
 				18A0C7A71B741E4900CCD363 /* CoreGraphics.framework */,
 				18A0C7A51B741E4300CCD363 /* CFNetwork.framework */,
 				18A0C7A31B741E3F00CCD363 /* AudioToolbox.framework */,
-				18A0C79B1B741E0100CCD363 /* Bolts.framework */,
-				18A0C79C1B741E0100CCD363 /* Parse.framework */,
-				18A0C79D1B741E0100CCD363 /* ParseUI.framework */,
+				F2AAE0E5FF22B01BB92C99C3 /* Pods_SiliconWindow.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -220,21 +211,19 @@
 			children = (
 				34E313F61B93D53700C34C3D /* CommentCell.swift */,
 				346B3A471B7439BF00A7B61D /* NewsViewCell.swift */,
-				18BE15C41B7454750004795C /* PostViewCell.swift */,
 				346B3A491B7439D200A7B61D /* CompanyViewCell.swift */,
 			);
 			name = "Table Cells";
 			sourceTree = "<group>";
 		};
-		346B3A4D1B743BC900A7B61D /* Data for Cells */ = {
+		346B3A4D1B743BC900A7B61D /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
 				18A0C7B81B741EDF00CCD363 /* Company.swift */,
-				187F5BE51B9100A200E5AB66 /* User.swift */,
 				18BE15C21B744E4E0004795C /* Comment.swift */,
 				346B3A4B1B743BC300A7B61D /* Post.swift */,
 			);
-			name = "Data for Cells";
+			name = "Data Model";
 			sourceTree = "<group>";
 		};
 		346B3A4E1B743C4200A7B61D /* Views */ = {
@@ -252,6 +241,15 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		8EB99946EFC4D1023D1FE72B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				17C80C64D829EBEACEFC5DED /* Pods-SiliconWindow.debug.xcconfig */,
+				691355FE0AFB74D7B8B4D0D8 /* Pods-SiliconWindow.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -259,9 +257,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 18A0C7931B741DB900CCD363 /* Build configuration list for PBXNativeTarget "SiliconWindow" */;
 			buildPhases = (
+				138B137928EE695045D0F031 /* Check Pods Manifest.lock */,
 				18A0C76E1B741DB800CCD363 /* Sources */,
 				18A0C76F1B741DB800CCD363 /* Frameworks */,
 				18A0C7701B741DB800CCD363 /* Resources */,
+				97B60B80E28C04FFBA9BBF2A /* Embed Pods Frameworks */,
+				851C58C22C63A3A391E98605 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -296,6 +297,7 @@
 		18A0C76A1B741DB800CCD363 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Julius Danek";
 				TargetAttributes = {
@@ -347,12 +349,59 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		138B137928EE695045D0F031 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		851C58C22C63A3A391E98605 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SiliconWindow/Pods-SiliconWindow-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		97B60B80E28C04FFBA9BBF2A /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SiliconWindow/Pods-SiliconWindow-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		18A0C76E1B741DB800CCD363 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				187F5BE61B9100A200E5AB66 /* User.swift in Sources */,
 				18A0C79A1B741DD700CCD363 /* AppDelegate.swift in Sources */,
 				18A0C7A21B741E2E00CCD363 /* Keys.swift in Sources */,
 				187F5BE81B9611E000E5AB66 /* CompanyDetailVC.swift in Sources */,
@@ -362,7 +411,6 @@
 				18A0C7BD1B741EF100CCD363 /* FeedVC.swift in Sources */,
 				346B3A481B7439BF00A7B61D /* NewsViewCell.swift in Sources */,
 				18A0C7B91B741EDF00CCD363 /* Company.swift in Sources */,
-				18BE15C51B7454760004795C /* PostViewCell.swift in Sources */,
 				34E313F51B93D43100C34C3D /* CommentsTableVC.swift in Sources */,
 				18A0C77A1B741DB800CCD363 /* CreatePostVC.swift in Sources */,
 				346B3A4A1B7439D200A7B61D /* CompanyViewCell.swift in Sources */,
@@ -494,6 +542,7 @@
 		};
 		18A0C7941B741DB900CCD363 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17C80C64D829EBEACEFC5DED /* Pods-SiliconWindow.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -506,6 +555,7 @@
 				IBC_WARNINGS = YES;
 				IBSC_WARNINGS = YES;
 				INFOPLIST_FILE = SiliconWindow/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -513,6 +563,7 @@
 		};
 		18A0C7951B741DB900CCD363 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 691355FE0AFB74D7B8B4D0D8 /* Pods-SiliconWindow.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -525,6 +576,7 @@
 				IBC_WARNINGS = YES;
 				IBSC_WARNINGS = YES;
 				INFOPLIST_FILE = SiliconWindow/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

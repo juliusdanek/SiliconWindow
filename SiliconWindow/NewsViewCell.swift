@@ -26,7 +26,7 @@ class NewsViewCell: PFTableViewCell {
     var timeString: String = ""
     var upTapped: Bool = false
     var downTapped: Bool = false
-    var icon: PFFile = PFFile()
+    var icon: PFFile?
    
     
     // vote post up
@@ -45,7 +45,7 @@ class NewsViewCell: PFTableViewCell {
             self.downArrow.setImage(imageDown, forState: .Normal)
             
             // change text
-            let numVotes:Int? = (self.numberOfVotes.text)?.toInt()
+            let numVotes:Int? = Int((self.numberOfVotes.text)!)
             self.numberOfVotes.text = String(numVotes! + 2)
             
             // save vote
@@ -64,7 +64,7 @@ class NewsViewCell: PFTableViewCell {
             self.upArrow.setImage(image, forState: .Normal)
             
             // change text
-            let numVotes:Int? = (self.numberOfVotes.text)?.toInt()
+            let numVotes:Int? = Int((self.numberOfVotes.text)!)
             self.numberOfVotes.text = String(numVotes! - 1)
             
             // save vote
@@ -80,7 +80,7 @@ class NewsViewCell: PFTableViewCell {
             self.upArrow.setImage(image, forState: .Normal)
             
             // change text
-            let numVotes:Int? = (self.numberOfVotes.text)?.toInt()
+            let numVotes:Int? = Int((self.numberOfVotes.text)!)
             self.numberOfVotes.text = String(numVotes! + 1)
 
             // save vote
@@ -106,7 +106,7 @@ class NewsViewCell: PFTableViewCell {
             self.downArrow.setImage(imageDown, forState: .Normal)
             
             // change text
-            let numVotes:Int? = (self.numberOfVotes.text)?.toInt()
+            let numVotes:Int? = Int((self.numberOfVotes.text)!)
             self.numberOfVotes.text = String(numVotes! - 2)
             
             // save vote
@@ -125,7 +125,7 @@ class NewsViewCell: PFTableViewCell {
             self.downArrow.setImage(image, forState: .Normal)
             
             // change text
-            let numVotes:Int? = (self.numberOfVotes.text)?.toInt()
+            let numVotes:Int? = Int((self.numberOfVotes.text)!)
             self.numberOfVotes.text = String(numVotes! + 1)
             
             // save vote
@@ -141,7 +141,7 @@ class NewsViewCell: PFTableViewCell {
             self.downArrow.setImage(image, forState: .Normal)
             
             // change text
-            let numVotes:Int? = (self.numberOfVotes.text)?.toInt()
+            let numVotes:Int? = Int((self.numberOfVotes.text)!)
             self.numberOfVotes.text = String(numVotes! - 1)
             
             // save vote
@@ -152,12 +152,12 @@ class NewsViewCell: PFTableViewCell {
     
     func saveVotes(relation: String, add: Bool) {
 
-        var saveVote = PFQuery(className:"Posts")
+        let saveVote = PFQuery(className:"Posts")
         
         saveVote.getObjectInBackgroundWithId(cellId) { (Post: PFObject?, error: NSError?) -> Void in
             
             if error == nil && Post != nil {
-                var relation = Post!.relationForKey(relation)
+                let relation = Post!.relationForKey(relation)
                 if add {
                     relation.addObject(PFUser.currentUser()!)
                 } else {
@@ -169,7 +169,7 @@ class NewsViewCell: PFTableViewCell {
                     } else { }
                 }
             }
-            else {  println(error) }
+            else {  print(error) }
         }
     }
     

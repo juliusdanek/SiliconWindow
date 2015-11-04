@@ -62,27 +62,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func signup() {
-        println("signing up")
+        print("signing up")
         //checking if there is a user cached
-        var currentUser = PFUser.currentUser()
+        let currentUser = PFUser.currentUser()
         if currentUser != nil {
             //simple return statements
             print("user still logged in")
             return
         } else {
-            var error: NSError? = NSError()
-            PFUser.logInWithUsername(UIDevice.currentDevice().identifierForVendor.UUIDString, password: "SiliconWindow", error: &error)
-            if error != nil {
-                println("signing new user up")
-                var user = PFUser()
-                user.username = UIDevice.currentDevice().identifierForVendor.UUIDString
+            do {
+                try PFUser.logInWithUsername(UIDevice.currentDevice().identifierForVendor!.UUIDString, password: "SiliconWindow")
+            } catch _ {
+                print("signing new user up")
+                let user = PFUser()
+                user.username = UIDevice.currentDevice().identifierForVendor!.UUIDString
                 user.password = "SiliconWindow"
-                user.signUp()
-                return
-            } else {
-                println("logged user in")
+                do {
+                    try user.signUp()
+                } catch _ {
+                    print("error signing in")
+                }
                 return
             }
+            print("logged user in")
+            return
         }
     }
 

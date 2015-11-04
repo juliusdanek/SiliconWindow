@@ -42,7 +42,7 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
         super.init(style: style, className: className)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         // Configure the PFQueryTableView
@@ -62,9 +62,9 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
         //if searchbar text is active, query needs to change to search bar text
         if searchBar.text != "" {
             //here the query actually accesses all companies and searches them
-            var query = PFQuery(className: "Companies")
+            let query = PFQuery(className: "Companies")
             //Looking for query with key that has a regular expression to ignore casing
-            query.whereKey("searchText", matchesRegex: searchBar.text.lowercaseString, modifiers: "i")
+            query.whereKey("searchText", matchesRegex: searchBar.text!.lowercaseString, modifiers: "i")
             //sort by name
             query.orderByAscending("name")
             return query
@@ -104,7 +104,7 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("CompanyViewCell") as! CompanyViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("CompanyViewCell") as! CompanyViewCell
         
         //setting the placeholder image
         cell.companyImage.image = UIImage(named: "placeholder")
@@ -182,7 +182,7 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier! == "showDetail" {
-            let indexPath = tableView.indexPathForSelectedRow()
+            let indexPath = tableView.indexPathForSelectedRow!
             let selectedCompany = objectAtIndexPath(indexPath) as! Company
             let companyDetail = segue.destinationViewController as! CompanyDetailVC
             companyDetail.company = selectedCompany
