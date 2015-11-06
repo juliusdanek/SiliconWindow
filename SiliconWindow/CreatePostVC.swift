@@ -1,68 +1,82 @@
 //
-//  FirstViewController.swift
+//  PostVC.swift
 //  SiliconWindow
 //
-//  Created by Julius Danek on 8/6/15.
+//  Created by Julius Danek on 9/1/15.
 //  Copyright (c) 2015 Julius Danek. All rights reserved.
 //
 
+import Foundation
 import UIKit
-import Parse
-import ParseUI
 
-class CreatePostVC: PFQueryTableViewController {
-
+class PostVC: UIViewController {
+    
+    //Outlets
+    @IBOutlet weak var newsSwitch: UISwitch!
+    @IBOutlet weak var segControl: UISegmentedControl!
+    @IBOutlet weak var titleField: UITextField!
+    @IBOutlet weak var textField: UITextView!
+    @IBOutlet weak var newsLabel: UILabel!
+    @IBOutlet weak var chatterLabel: UILabel!
+    
+    var company: Company!
+        
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Submit", style: .Plain, target: self, action: "submit")
+        navigationItem.title = company.name
         
-        self.placeholderImage = UIImage(named: "placeholder")
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "dismiss")
+        newsSwitch.addTarget(self, action: "switchPost:", forControlEvents: UIControlEvents.ValueChanged)
     }
     
-    override func queryForTable() -> PFQuery {
-        //here it only shows the companies that the user added
-        let currentUser = PFUser.currentUser()
-        //check for relational companies
-        let relation = currentUser!.relationForKey("companies")
-        //return query
-        if self.objects?.count == 0 {
-            //TODO: Implement a label that tells user to add / search for companies.
+    //switching between news and chatter
+    func switchPost (switchState: UISwitch) {
+        if switchState.on {
+            chatterSegmenter(true)
+//            UIView.transitionWithView(titleField, duration: 0.4, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: nil, completion: { (success) -> Void in
+//                if success {
+//                    self.titleField.hidden = true
+//                }
+//            })
+        } else {
+            chatterSegmenter(false)
         }
-        return relation.query()!
     }
     
-    //functions to show tableviewcell
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath, object: PFObject?) -> PFTableViewCell? {
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier("CompanyViewCell") as! CompanyViewCell
-        
-        
-        //setting name, location and image
-        if let company = object as? Company {
-            cell.companyName.text = company.name
-            cell.companyLocation.text = company.location
-            //making sure that label fits
-            cell.companyName.adjustsFontSizeToFitWidth = true
-            
-            //download image in background, provided there is one
-            if company.imageFile != nil {
-                cell.companyImage.file = company.imageFile
-                cell.companyImage.loadInBackground()
+    //Configuring labels and segment control for switch
+    func chatterSegmenter (chatter: Bool) {
+        segControl.setEnabled(chatter, forSegmentAtIndex: 0)
+        segControl.setEnabled(chatter, forSegmentAtIndex: 2)
+        if chatter {
+            chatterLabel.backgroundColor = UIColor(red:0.93, green:0.30, blue:0.36, alpha:1.0)
+            chatterLabel.textColor = UIColor.whiteColor()
+            newsLabel.textColor = UIColor.blackColor()
+            newsLabel.backgroundColor = UIColor.clearColor()
+        } else {
+            newsLabel.backgroundColor = UIColor(red:0.93, green:0.30, blue:0.36, alpha:1.0)
+            newsLabel.textColor = UIColor.whiteColor()
+            chatterLabel.textColor = UIColor.blackColor()
+            chatterLabel.backgroundColor = UIColor.clearColor()
+            segControl.selectedSegmentIndex = 1
+        }
+    }
+    
+    func submit () {
+        let newPost = Post()
+        newPost.sentiment = segControl.selectedSegmentIndex
+        newPost.company = company
+        newPost.post = textField.text
+        newPost.title = titleField.text!
+        if newsSwitch.on {
+            newPost.news = false
+        } else {
+            newPost.news = true
+        }
+        newPost.votes = 0
+        newPost.saveInBackgroundWithBlock { (success, error) -> Void in
+            if success {
+                self.dismissViewControllerAnimated(true, completion: nil)
             }
         }
-        return cell
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let destVC = segue.destinationViewController as! PostVC
-        let indexPath = tableView.indexPathForSelectedRow!
-        let selectedCompany = objectAtIndexPath(indexPath) as! Company
-        destVC.company = selectedCompany
-    }
-    
-    func dismiss () {
-        dismissViewControllerAnimated(true, completion: nil)
     }
 }
-

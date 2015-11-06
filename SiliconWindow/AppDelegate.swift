@@ -72,6 +72,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             do {
                 try PFUser.logInWithUsername(UIDevice.currentDevice().identifierForVendor!.UUIDString, password: "SiliconWindow")
+            } catch PFErrorCode.ErrorConnectionFailed {
+                //TODO: Need to implement alertview that pops up if there is no Internetconnection
+                let alert = UIAlertController(title: "Internet Error", message: "Your connection failed. Please enable Internet in order to access Silicon Window", preferredStyle: .Alert)
+                print("Internet Error bruv")
             } catch _ {
                 print("signing new user up")
                 let user = PFUser()

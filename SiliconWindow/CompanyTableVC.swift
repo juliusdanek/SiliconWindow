@@ -193,6 +193,7 @@ class CompanyTableVC: PFQueryTableViewController, UISearchBarDelegate {
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         switchBarButton(false)
+        self.loadObjects()
     }
     
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {

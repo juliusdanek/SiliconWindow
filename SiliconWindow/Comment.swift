@@ -6,6 +6,14 @@
 //  Copyright (c) 2015 Julius Danek. All rights reserved.
 //
 
+//MARK: General comments
+/*
+This is the comment view cell. 
+TODO: Think about adding an upvote button here. 
+TODO: Add flagging buttons
+*/
+
+
 import Foundation
 import Parse
 

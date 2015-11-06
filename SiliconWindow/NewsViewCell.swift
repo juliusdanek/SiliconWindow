@@ -15,7 +15,6 @@ class NewsViewCell: PFTableViewCell {
     @IBOutlet weak var companyImage: PFImageView!
     @IBOutlet weak var companyName: UILabel!
     @IBOutlet var upArrow: UIButton!
-    @IBOutlet var downArrow: UIButton!
     @IBOutlet var newsLabel: UILabel!
     @IBOutlet weak var postTitle: UILabel!
     @IBOutlet weak var timePosted: UILabel!
@@ -25,152 +24,90 @@ class NewsViewCell: PFTableViewCell {
     var cellId: String = ""
     var timeString: String = ""
     var upTapped: Bool = false
-    var downTapped: Bool = false
     var icon: PFFile?
+    var post: Post?
    
     
     // vote post up
     @IBAction func upVote(sender: AnyObject) {
         
-        // already voted down
-        if(downTapped) {
-            
-            upTapped = true
-            downTapped = false
-            
-            // change button image
-            let image = UIImage(named: "upArrowRed") as UIImage!
-            self.upArrow.setImage(image, forState: .Normal)
-            let imageDown = UIImage(named: "downArrow") as UIImage!
-            self.downArrow.setImage(imageDown, forState: .Normal)
-            
-            // change text
-            let numVotes:Int? = Int((self.numberOfVotes.text)!)
-            self.numberOfVotes.text = String(numVotes! + 2)
-            
-            // save vote
-            saveVotes("upVotes", add: true)
-            saveVotes("downVotes", add: false)
-            
-        }
-        
-        // already voted up
-        else if(upTapped) {
-            
-            upTapped = false
-            
-            // change button image
-            let image = UIImage(named: "upArrow") as UIImage!
-            self.upArrow.setImage(image, forState: .Normal)
-            
-            // change text
-            let numVotes:Int? = Int((self.numberOfVotes.text)!)
-            self.numberOfVotes.text = String(numVotes! - 1)
-            
-            // save vote
-            saveVotes("upVotes", add: false)
-            
-            
+        if upTapped {
+            saveVotes(false, completionHandler: { (success, error) -> Void in
+                if success {
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.changeArrow(false)
+                    })
+                }
+            })
         } else {
-            
-            upTapped = true
-            
-            // change button image
-            let image = UIImage(named: "upArrowRed") as UIImage!
-            self.upArrow.setImage(image, forState: .Normal)
-            
-            // change text
-            let numVotes:Int? = Int((self.numberOfVotes.text)!)
-            self.numberOfVotes.text = String(numVotes! + 1)
-
-            // save vote
-            saveVotes("upVotes", add: true)
-            
-        }
-        
-    }
-    
-    // vote post down
-    @IBAction func downVote(sender: AnyObject) {
-        
-        // already voted up
-        if(upTapped) {
-            
-            upTapped = false
-            downTapped = true
-            
-            // change button image
-            let image = UIImage(named: "upArrow") as UIImage!
-            self.upArrow.setImage(image, forState: .Normal)
-            let imageDown = UIImage(named: "downArrowRed") as UIImage!
-            self.downArrow.setImage(imageDown, forState: .Normal)
-            
-            // change text
-            let numVotes:Int? = Int((self.numberOfVotes.text)!)
-            self.numberOfVotes.text = String(numVotes! - 2)
-            
-            // save vote
-            saveVotes("downVotes", add: true)
-            saveVotes("upVotes", add: false)
-            
-        }
-
-        // already down voted
-        else if(downTapped) {
-            
-            downTapped = false
-            
-            // change button image
-            let image = UIImage(named: "downArrow") as UIImage!
-            self.downArrow.setImage(image, forState: .Normal)
-            
-            // change text
-            let numVotes:Int? = Int((self.numberOfVotes.text)!)
-            self.numberOfVotes.text = String(numVotes! + 1)
-            
-            // save vote
-            saveVotes("downVotes", add: false)
-            
-            
-        } else {
-            
-            downTapped = true
-            
-            // change button image
-            let image = UIImage(named: "downArrowRed") as UIImage!
-            self.downArrow.setImage(image, forState: .Normal)
-            
-            // change text
-            let numVotes:Int? = Int((self.numberOfVotes.text)!)
-            self.numberOfVotes.text = String(numVotes! - 1)
-            
-            // save vote
-            saveVotes("downVotes", add: true)
-            
+            saveVotes(true, completionHandler: { (success, error) -> Void in
+                if success {
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.changeArrow(true)
+                    })
+                }
+            })
         }
     }
     
-    func saveVotes(relation: String, add: Bool) {
-
-        let saveVote = PFQuery(className:"Posts")
+    //saving votes to parse in both the post as well as the user class
+    func saveVotes(add: Bool, completionHandler: (success: Bool, error: NSError?) -> Void) {
         
-        saveVote.getObjectInBackgroundWithId(cellId) { (Post: PFObject?, error: NSError?) -> Void in
-            
-            if error == nil && Post != nil {
-                let relation = Post!.relationForKey(relation)
-                if add {
-                    relation.addObject(PFUser.currentUser()!)
-                } else {
-                    relation.removeObject(PFUser.currentUser()!)
-                }
-                Post!.saveInBackgroundWithBlock {
-                    (success: Bool, error: NSError?) -> Void in
-                    if (success) {
-                    } else { }
-                }
+        //get current user
+        let currentUser = PFUser.currentUser()
+        //get the relation for likedPosts
+        let relation = currentUser!.relationForKey("likedPosts")
+        
+        if add {
+            //if we are adding, increment votes on posts by 1 and add post to user likes
+            post!.incrementKey("votes")
+            relation.addObject(post!)
+        } else {
+            //else, decrement votes on posts by 1 and remove post from user likes
+            post!.incrementKey("votes", byAmount: -1)
+            relation.removeObject(post!)
+        }
+        //save in background
+        currentUser?.saveInBackgroundWithBlock({ (success, error) -> Void in
+            if error != nil{
+                completionHandler(success: false, error: error)
+            } else {
+                //if sucess, save the post as well
+                self.post!.saveInBackgroundWithBlock({ (success, error) -> Void in
+                    if success {
+                        //if success, call the completion Handler
+                        completionHandler(success: true, error: nil)
+                    } else {
+                        completionHandler(success: false, error: error)
+                    }
+                })
             }
-            else {  print(error) }
-        }
+        })
     }
     
+    func changeArrow (add: Bool) {
+        
+        //change selector for cell
+        upTapped = add
+        
+        if add {
+            
+            //change arrow color
+            let image = UIImage(named: "upArrowRed") as UIImage!
+            self.upArrow.setImage(image, forState: .Normal)
+            
+            // change text
+            let numVotes:Int? = Int((self.numberOfVotes.text)!)
+            self.numberOfVotes.text = String(numVotes! + 1)
+        } else {
+            //change arrow color
+            let image = UIImage(named: "upArrow") as UIImage!
+            self.upArrow.setImage(image, forState: .Normal)
+            
+            // change text
+            let numVotes:Int? = Int((self.numberOfVotes.text)!)
+            self.numberOfVotes.text = String(numVotes! - 1)
+            
+        }
+    }
 }

@@ -41,6 +41,7 @@ class CommentsTableVC: PFQueryTableViewController {
     override func queryForTable() -> PFQuery {
         let query = PFQuery(className: "Comments")
         query.whereKey("postId", equalTo: postId)
+        //ordering by when the comment was created
         query.orderByDescending("createdAt")
         return query
     }
@@ -53,6 +54,7 @@ class CommentsTableVC: PFQueryTableViewController {
             
             cell.comment.text = comment.commentString
             // convert date to hrs/mins
+            //TODO: Change this into the same format that is used in the FeedVC, showing minutes, hours or days
             let calendar = NSCalendar.currentCalendar()
             let comp = calendar.components([.Hour , .Minute], fromDate: comment.createdAt!)
             let hour = comp.hour

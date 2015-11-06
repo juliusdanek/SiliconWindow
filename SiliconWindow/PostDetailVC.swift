@@ -6,6 +6,15 @@
 //  Copyright (c) 2015 Julius Danek. All rights reserved.
 //
 
+//MARK: General Comments
+/*
+This is the the VC that shows details about a post
+It shows an image of the post & the text of the post. 
+*/
+
+//TODO: the layout of the post needs to be changed
+//TODO: Add reporting button in top right. 
+
 import UIKit
 import Parse
 import ParseUI
@@ -35,7 +44,9 @@ class PostViewController: UIViewController {
        
         // set outlets
         self.title = "Post Details"
+        //
         self.postText.text = postTitle
+        //being passed from other controller
         self.time.text = timeString
         
         // set padding or comment field
@@ -54,7 +65,7 @@ class PostViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // segue performed --> prepare data before showing next  screen
+    //Segue for container screen --> prepare data before showing next screen.
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
         // go to post screen
@@ -66,6 +77,7 @@ class PostViewController: UIViewController {
     }
 
     // post a comment
+    //TODO: The commenting system seems to be working but should double check and test
     @IBAction func postComment(sender: AnyObject) {
         
         let comment = PFObject(className:"Comments")
@@ -76,8 +88,11 @@ class PostViewController: UIViewController {
             if (success) {
                 
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    //reload the table view below once the comment has been successfully posted
                     let tableVC : CommentsTableVC = self.childViewControllers[0] as! CommentsTableVC
                     tableVC.viewDidLoad()
+                    //reset the commentField to empty
+                    self.commentField.text = ""
                 })
                 
             } else {
